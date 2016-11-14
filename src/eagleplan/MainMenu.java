@@ -1,36 +1,25 @@
-
 package eagleplan;
-
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 
-
 //* Used: mysql-connector-java-5.1.40-bin
-    
 public class MainMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
-        DBConnect conn = new DBConnect();
-        try{
-        conn.GetRS("Select * from slots");
-        } catch (SQLException e) {
-            
-        }
-        initComponents();
-        tblSlots.setModel(DbUtils.resultSetToTableModel(conn.rs));
+
+        tblSlotsCreate();
+
         //tblSlots.setColumnModel(columnModel);
         //tblSlots.setModel(DbUtils.resultSetToTableModel(connect.rs));
     }
 
-    
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,12 +36,16 @@ public class MainMenu extends javax.swing.JFrame {
         tblSlots = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setTitle("EaglePlan");
+        setPreferredSize(new java.awt.Dimension(1200, 800));
+        setSize(new java.awt.Dimension(1200, 800));
 
         lblAppTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblAppTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAppTitle.setText("EaglePlan Version 1.1a");
         lblAppTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1152, 862));
 
         tblSlots.setAutoCreateRowSorter(true);
         tblSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -99,14 +92,14 @@ public class MainMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblAppTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblAppTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,9 +107,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void tblSlotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSlotsMouseClicked
 
-        
         //(this.tblSlots.getValueAt(tblSlots.getSelectedRow(), 1))
-        
         System.out.println((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 0)).toString());
         // TODO add your handling code here:
     }//GEN-LAST:event_tblSlotsMouseClicked
@@ -125,7 +116,7 @@ public class MainMenu extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -148,14 +139,6 @@ public class MainMenu extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
-        
-        
-        
-        
-        
-        
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -164,39 +147,38 @@ public class MainMenu extends javax.swing.JFrame {
         });
     }
 
-    public void MakeTable(){
-        
+    public void MakeTable() {
+
         DBConnect connect = new DBConnect();
-        
+
         try {
             connect.GetRS("Select s.* from slots s order by s.slot_date_time_start asc");
             connect.rs.last();
             //System.out.println("The total number of records are: " + connect.rs.getRow());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Problem: " + e);
+            JOptionPane.showMessageDialog(null, "Problem: " + e);
         }
-            
-        
+
         try {
             while (connect.rs.next()) {
                 String id = connect.rs.getString(1);
                 String location = connect.rs.getString(3);
                 String Can1 = connect.rs.getString(7);
                 String Can2 = connect.rs.getString(8);
-                
-                Object[] content = {id,location,Can1,Can2};
-               
+
+                Object[] content = {id, location, Can1, Can2};
+
                 DefaultTableModel model = new DefaultTableModel();
-                
+
                 model.addRow(content);
-                
+
             }
         } catch (Exception e) {
-            
+
         }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -204,4 +186,20 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSlots;
     private javax.swing.JTable tblSlots;
     // End of variables declaration//GEN-END:variables
+
+    private void tblSlotsCreate() {
+        DBConnect conn = new DBConnect();
+        try {
+            conn.GetRS("select s.slot_id as 'ID', s.slot_location as 'Location', s.slot_date_time_start as 'Date', "
+                    + "s.slot_candidate_1 as 'Candidate 1', s.slot_candidate_2 as 'Candidate 2', s.slot_training_type as 'Type of Training', "
+                    + "s.slot_instructor_1 as 'Instructor', s.slot_confirmed as 'Confirmed', s.slot_completed as 'Completed' from slots s"
+                    + " order by slot_date_time_start;");
+        } catch (SQLException e) {
+
+        }
+        initComponents();
+        tblSlots.setModel(DbUtils.resultSetToTableModel(conn.rs));
+        TableColumn column = null;
+
+    }
 }
