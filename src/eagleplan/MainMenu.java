@@ -1,9 +1,11 @@
 package eagleplan;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -16,14 +18,17 @@ public class MainMenu extends javax.swing.JFrame {
      * Creates new form MainMenu
      */
     public MainMenu() {
-
+        initComponents();   
         tblSlotsCreate();
+        tblPairingsCreate();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         tblSlots.setRowSelectionInterval(0, 0);
-       
-       //table.changeSelection(0, 0, false, false);
+        
+        
+        //tblPairings.setRowSelectionInterval(0, 0);
 
+        //table.changeSelection(0, 0, false, false);
         //tblSlots.setColumnModel(columnModel);
         //tblSlots.setModel(DbUtils.resultSetToTableModel(connect.rs));
     }
@@ -37,6 +42,10 @@ public class MainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dlgSlotHistory = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        pmnuMain = new javax.swing.JPopupMenu();
+        mnuShowHistory = new javax.swing.JMenuItem();
         lblAppTitle = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlSlots = new javax.swing.JPanel();
@@ -61,6 +70,37 @@ public class MainMenu extends javax.swing.JFrame {
         lblTime = new javax.swing.JLabel();
         tglExpanded = new javax.swing.JToggleButton();
         pnlExpanded = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        pnlPairings = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPairings = new javax.swing.JTable();
+
+        dlgSlotHistory.setAlwaysOnTop(true);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 653, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 416, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout dlgSlotHistoryLayout = new javax.swing.GroupLayout(dlgSlotHistory.getContentPane());
+        dlgSlotHistory.getContentPane().setLayout(dlgSlotHistoryLayout);
+        dlgSlotHistoryLayout.setHorizontalGroup(
+            dlgSlotHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        dlgSlotHistoryLayout.setVerticalGroup(
+            dlgSlotHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        mnuShowHistory.setText("Show History");
+        pmnuMain.add(mnuShowHistory);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EaglePlan");
@@ -91,9 +131,6 @@ public class MainMenu extends javax.swing.JFrame {
         tblSlots.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSlots.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSlotsMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tblSlotsMouseClicked(evt);
             }
         });
@@ -186,15 +223,28 @@ public class MainMenu extends javax.swing.JFrame {
 
         pnlExpanded.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlExpandedLayout = new javax.swing.GroupLayout(pnlExpanded);
         pnlExpanded.setLayout(pnlExpandedLayout);
         pnlExpandedLayout.setHorizontalGroup(
             pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlExpandedLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(230, 230, 230))
         );
         pnlExpandedLayout.setVerticalGroup(
             pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jButton1)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -275,7 +325,7 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tglExpanded, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -290,7 +340,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlSlotsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1117, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1165, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -301,10 +351,45 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Slots", pnlSlots);
+
+        tblPairings.setAutoCreateRowSorter(true);
+        tblPairings.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tblPairings.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblPairings.setRowHeight(30);
+        jScrollPane2.setViewportView(tblPairings);
+
+        javax.swing.GroupLayout pnlPairingsLayout = new javax.swing.GroupLayout(pnlPairings);
+        pnlPairings.setLayout(pnlPairingsLayout);
+        pnlPairingsLayout.setHorizontalGroup(
+            pnlPairingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPairingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1117, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlPairingsLayout.setVerticalGroup(
+            pnlPairingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPairingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(430, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Pairings", pnlPairings);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -318,7 +403,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblAppTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE))
         );
 
         pack();
@@ -326,35 +411,34 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void tblSlotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSlotsMouseClicked
 
-        //(this.tblSlots.getValueAt(tblSlots.getSelectedRow(), 1))
         try {
             String tblSlotsID = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 0)).toString();
             String tblCandidate1 = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 4)).toString();
             String tblCandidate2 = "None";
             if ((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 5)) != null) {
                 tblCandidate2 = ((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 5)).toString());
-            } 
+            }
             String tblTypeOfTraining = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 6)).toString();
             String tblInstructor1 = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 7)).toString();
             String tblDate = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 2)).toString();
             String tblTime = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 3)).toString();
             Boolean blnSlotConfirmed = Boolean.valueOf((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 8)).toString());
             Boolean blnSlotCompleted = Boolean.valueOf((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 9)).toString());
-            if (blnSlotConfirmed)  {
+            if (blnSlotConfirmed) {
                 tglSlotConfirmed.setBackground(Color.green);
                 tglSlotConfirmed.setText("Confirmed.");
-                }else {
+            } else {
                 tglSlotConfirmed.setBackground(Color.red);
                 tglSlotConfirmed.setText("Not Confirmed Yet.");
-                }
+            }
             tglSlotConfirmed.setSelected(blnSlotConfirmed);
-            if (blnSlotCompleted)  {
+            if (blnSlotCompleted) {
                 tglSlotCompleted.setBackground(Color.cyan);
                 tglSlotCompleted.setText("Completed.");
-                }else {
+            } else {
                 tglSlotCompleted.setBackground(Color.orange);
                 tglSlotCompleted.setText("Not Completed Yet.");
-                }
+            }
             tglSlotCompleted.setSelected(blnSlotCompleted);
             lblSlotID.setText(tblSlotsID);
             lblCandidate1.setText(tblCandidate1);
@@ -363,16 +447,25 @@ public class MainMenu extends javax.swing.JFrame {
             lblInstructor1.setText(tblInstructor1);
             lblDate.setText(tblDate);
             lblTime.setText(tblTime);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblSlotsMouseClicked: " + e);
         }
     }//GEN-LAST:event_tblSlotsMouseClicked
 
     private void tglExpandedPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tglExpandedPropertyChange
-        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_tglExpandedPropertyChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dlgSlotHistory.setSize(600, 500);
+        dlgSlotHistory.setModalityType(Dialog.ModalityType.MODELESS);
+        dlgSlotHistory.setVisible(true);
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,6 +535,8 @@ public class MainMenu extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog dlgSlotHistory;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -450,7 +545,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAppTitle;
     private javax.swing.JLabel lblCandidate1;
@@ -460,8 +557,12 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblSlotID;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTypeOfTraining;
+    private javax.swing.JMenuItem mnuShowHistory;
+    private javax.swing.JPopupMenu pmnuMain;
     private javax.swing.JPanel pnlExpanded;
+    private javax.swing.JPanel pnlPairings;
     private javax.swing.JPanel pnlSlots;
+    private javax.swing.JTable tblPairings;
     private javax.swing.JTable tblSlots;
     private javax.swing.JToggleButton tglExpanded;
     private javax.swing.JToggleButton tglSlotCompleted;
@@ -469,18 +570,40 @@ public class MainMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tblSlotsCreate() {
-        DBConnect conn = new DBConnect();
+        DBConnect connSlots = new DBConnect();
         try {
-            conn.GetRS("select s.slot_id as 'ID', s.slot_location as 'Location', Upper(DATE_FORMAT(s.slot_date_time_start,'%d-%b-%Y')) as 'Date', "
+            connSlots.GetRS("select s.slot_id as 'ID', s.slot_location as 'Location', Upper(DATE_FORMAT(s.slot_date_time_start,'%d-%b-%Y')) as 'Date', "
                     + "Upper(DATE_FORMAT(s.slot_date_time_start,'%H:%m')) as 'Time',s.slot_candidate_1 as 'Candidate 1', "
                     + "s.slot_candidate_2 as 'Candidate 2', s.slot_training_type as 'Type of Training', s.slot_instructor_1 as 'Instructor', "
                     + "s.slot_confirmed as 'Confirmed', s.slot_completed as 'Completed' from slots s order by s.slot_date_time_start;");
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblSlotsCreate(): " + e);
         }
-        initComponents();
-        tblSlots.setModel(DbUtils.resultSetToTableModel(conn.rs));
-        TableColumn column = null;
+        //initComponents();
+        
+        
+        tblSlots.setModel(DbUtils.resultSetToTableModel(connSlots.rs));
+        //TableColumn column = null;
 
     }
+
+    private void tblPairingsCreate() {
+        DBConnect conPairings = new DBConnect();
+        try {
+            conPairings.GetRS("select p.pair_id as 'Pairing ID', p.slot1 as 'Slot 1 ID', p.slot2 as 'Slot 2 ID' from pairings p;");
+            //conPairings.rs.last();
+            //JOptionPane.showMessageDialog(null, "Total records: " + (conPairings.rs.getRow()));
+            
+            //TableColumn column = null;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblPairingsCreate(): " + e);
+        }
+        
+        tblPairings.setModel(DbUtils.resultSetToTableModel(conPairings.rs));
+        
+          
+          
+          //TableColumn column = null;
+    }
+
 }
