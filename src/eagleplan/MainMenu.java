@@ -1,5 +1,8 @@
 package eagleplan;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +18,11 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
 
         tblSlotsCreate();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        tblSlots.setRowSelectionInterval(0, 0);
+       
+       //table.changeSelection(0, 0, false, false);
 
         //tblSlots.setColumnModel(columnModel);
         //tblSlots.setModel(DbUtils.resultSetToTableModel(connect.rs));
@@ -34,6 +42,25 @@ public class MainMenu extends javax.swing.JFrame {
         pnlSlots = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSlots = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblSlotID = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblCandidate1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblCandidate2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblTypeOfTraining = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblInstructor1 = new javax.swing.JLabel();
+        tglSlotConfirmed = new javax.swing.JToggleButton();
+        tglSlotCompleted = new javax.swing.JToggleButton();
+        jLabel6 = new javax.swing.JLabel();
+        lblDate = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
+        tglExpanded = new javax.swing.JToggleButton();
+        pnlExpanded = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EaglePlan");
@@ -61,12 +88,200 @@ public class MainMenu extends javax.swing.JFrame {
             }
         ));
         tblSlots.setRowHeight(30);
+        tblSlots.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSlots.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSlotsMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblSlotsMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(tblSlots);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Details of Slot"));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Slot ID:");
+        jLabel1.setPreferredSize(new java.awt.Dimension(55, 22));
+
+        lblSlotID.setBackground(new java.awt.Color(204, 255, 204));
+        lblSlotID.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblSlotID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSlotID.setOpaque(true);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Candidate 1:");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblCandidate1.setBackground(new java.awt.Color(204, 255, 204));
+        lblCandidate1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblCandidate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCandidate1.setOpaque(true);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Candidate 2:");
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblCandidate2.setBackground(new java.awt.Color(204, 255, 204));
+        lblCandidate2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblCandidate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCandidate2.setOpaque(true);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("Type of Training:");
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblTypeOfTraining.setBackground(new java.awt.Color(204, 255, 204));
+        lblTypeOfTraining.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTypeOfTraining.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTypeOfTraining.setOpaque(true);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Instructor 1:");
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblInstructor1.setBackground(new java.awt.Color(204, 255, 204));
+        lblInstructor1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblInstructor1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInstructor1.setOpaque(true);
+
+        tglSlotConfirmed.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tglSlotConfirmed.setText("Slot Confirmation");
+
+        tglSlotCompleted.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tglSlotCompleted.setText("Slot Completed");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Date:");
+
+        lblDate.setBackground(new java.awt.Color(204, 255, 204));
+        lblDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDate.setToolTipText("");
+        lblDate.setOpaque(true);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("Time:");
+
+        lblTime.setBackground(new java.awt.Color(204, 255, 204));
+        lblTime.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTime.setOpaque(true);
+
+        tglExpanded.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tglExpanded.setText("...");
+        tglExpanded.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tglExpandedPropertyChange(evt);
+            }
+        });
+
+        pnlExpanded.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout pnlExpandedLayout = new javax.swing.GroupLayout(pnlExpanded);
+        pnlExpanded.setLayout(pnlExpandedLayout);
+        pnlExpandedLayout.setHorizontalGroup(
+            pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlExpandedLayout.setVerticalGroup(
+            pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(lblSlotID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCandidate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCandidate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTypeOfTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(27, 27, 27)
+                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tglExpanded)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSlotID, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(lblTypeOfTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCandidate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5)
+                            .addComponent(lblInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tglSlotCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCandidate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addComponent(tglExpanded, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
 
         javax.swing.GroupLayout pnlSlotsLayout = new javax.swing.GroupLayout(pnlSlots);
         pnlSlots.setLayout(pnlSlotsLayout);
@@ -74,15 +289,19 @@ public class MainMenu extends javax.swing.JFrame {
             pnlSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSlotsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
+                .addGroup(pnlSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1117, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlSlotsLayout.setVerticalGroup(
             pnlSlotsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSlotsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Slots", pnlSlots);
@@ -99,7 +318,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(lblAppTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE))
         );
 
         pack();
@@ -108,9 +327,52 @@ public class MainMenu extends javax.swing.JFrame {
     private void tblSlotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSlotsMouseClicked
 
         //(this.tblSlots.getValueAt(tblSlots.getSelectedRow(), 1))
-        System.out.println((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 0)).toString());
-        // TODO add your handling code here:
+        try {
+            String tblSlotsID = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 0)).toString();
+            String tblCandidate1 = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 4)).toString();
+            String tblCandidate2 = "None";
+            if ((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 5)) != null) {
+                tblCandidate2 = ((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 5)).toString());
+            } 
+            String tblTypeOfTraining = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 6)).toString();
+            String tblInstructor1 = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 7)).toString();
+            String tblDate = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 2)).toString();
+            String tblTime = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 3)).toString();
+            Boolean blnSlotConfirmed = Boolean.valueOf((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 8)).toString());
+            Boolean blnSlotCompleted = Boolean.valueOf((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 9)).toString());
+            if (blnSlotConfirmed)  {
+                tglSlotConfirmed.setBackground(Color.green);
+                tglSlotConfirmed.setText("Confirmed.");
+                }else {
+                tglSlotConfirmed.setBackground(Color.red);
+                tglSlotConfirmed.setText("Not Confirmed Yet.");
+                }
+            tglSlotConfirmed.setSelected(blnSlotConfirmed);
+            if (blnSlotCompleted)  {
+                tglSlotCompleted.setBackground(Color.cyan);
+                tglSlotCompleted.setText("Completed.");
+                }else {
+                tglSlotCompleted.setBackground(Color.orange);
+                tglSlotCompleted.setText("Not Completed Yet.");
+                }
+            tglSlotCompleted.setSelected(blnSlotCompleted);
+            lblSlotID.setText(tblSlotsID);
+            lblCandidate1.setText(tblCandidate1);
+            lblCandidate2.setText(tblCandidate2);
+            lblTypeOfTraining.setText(tblTypeOfTraining);
+            lblInstructor1.setText(tblInstructor1);
+            lblDate.setText(tblDate);
+            lblTime.setText(tblTime);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblSlotsMouseClicked: " + e);
+        }
     }//GEN-LAST:event_tblSlotsMouseClicked
+
+    private void tglExpandedPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tglExpandedPropertyChange
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_tglExpandedPropertyChange
 
     /**
      * @param args the command line arguments
@@ -180,20 +442,39 @@ public class MainMenu extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAppTitle;
+    private javax.swing.JLabel lblCandidate1;
+    private javax.swing.JLabel lblCandidate2;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblInstructor1;
+    private javax.swing.JLabel lblSlotID;
+    private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTypeOfTraining;
+    private javax.swing.JPanel pnlExpanded;
     private javax.swing.JPanel pnlSlots;
     private javax.swing.JTable tblSlots;
+    private javax.swing.JToggleButton tglExpanded;
+    private javax.swing.JToggleButton tglSlotCompleted;
+    private javax.swing.JToggleButton tglSlotConfirmed;
     // End of variables declaration//GEN-END:variables
 
     private void tblSlotsCreate() {
         DBConnect conn = new DBConnect();
         try {
-            conn.GetRS("select s.slot_id as 'ID', s.slot_location as 'Location', s.slot_date_time_start as 'Date', "
-                    + "s.slot_candidate_1 as 'Candidate 1', s.slot_candidate_2 as 'Candidate 2', s.slot_training_type as 'Type of Training', "
-                    + "s.slot_instructor_1 as 'Instructor', s.slot_confirmed as 'Confirmed', s.slot_completed as 'Completed' from slots s"
-                    + " order by slot_date_time_start;");
+            conn.GetRS("select s.slot_id as 'ID', s.slot_location as 'Location', Upper(DATE_FORMAT(s.slot_date_time_start,'%d-%b-%Y')) as 'Date', "
+                    + "Upper(DATE_FORMAT(s.slot_date_time_start,'%H:%m')) as 'Time',s.slot_candidate_1 as 'Candidate 1', "
+                    + "s.slot_candidate_2 as 'Candidate 2', s.slot_training_type as 'Type of Training', s.slot_instructor_1 as 'Instructor', "
+                    + "s.slot_confirmed as 'Confirmed', s.slot_completed as 'Completed' from slots s order by s.slot_date_time_start;");
         } catch (SQLException e) {
 
         }
