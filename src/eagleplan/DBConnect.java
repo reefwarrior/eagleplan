@@ -7,10 +7,9 @@ public class DBConnect {
 
 //* based on https://www.youtube.com/watch?v=BCqW5XwtJxY
 //* Used: mysql-connector-java-5.1.40-bin
-    
     public Connection con;
     public Statement st;
-    public  ResultSet rs;
+    public ResultSet rs;
     String sqlServerIP = "62.210.74.33";
     String sqlServerPort = "3306";
     String sqlUsername = "reefwarrior";
@@ -26,27 +25,27 @@ public class DBConnect {
             con = DriverManager.getConnection(conString, sqlUsername, sqlPassword);
             st = con.createStatement();
         } catch (ClassNotFoundException | SQLException ex) {
-           JOptionPane.showMessageDialog(null,"Eagleplan Exception Error - DBConnect(): " + ex);
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - DBConnect(): " + ex);
         }
 
     }
 
-    public ResultSet GetRS(String sqlQuery) throws SQLException  {
+    public ResultSet GetRS(String sqlQuery) throws SQLException {
         try {
             DBConnect();
-            //ResultSet rs = null;
-            //String query = sqlQuery;
+
             rs = st.executeQuery(sqlQuery);
             rs.first();
-            //System.out.println(rs.getString("short_name"));
+            System.out.println("Returned a ResultSet!");
             
             return rs;
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Eagleplan Exception Error - GetRS(): " + e);
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - GetRS(): " + e);
         }
-    return null;
+        System.out.println("Returned Null!");
+        return null;
+        
     }
-
-    
 
 }

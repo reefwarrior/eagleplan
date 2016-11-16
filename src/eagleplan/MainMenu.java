@@ -10,6 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 //* Used: mysql-connector-java-5.1.40-bin
 public class MainMenu extends javax.swing.JFrame {
@@ -71,9 +76,14 @@ public class MainMenu extends javax.swing.JFrame {
         tglExpanded = new javax.swing.JToggleButton();
         pnlExpanded = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        btnAddEditDeleteSlots = new javax.swing.JButton();
         pnlPairings = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPairings = new javax.swing.JTable();
+        pnlReports = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        btnrptLPCOPCLapseDates = new javax.swing.JButton();
+        btnrptProvisionalPlanning = new javax.swing.JButton();
 
         dlgSlotHistory.setAlwaysOnTop(true);
 
@@ -103,7 +113,7 @@ public class MainMenu extends javax.swing.JFrame {
         pmnuMain.add(mnuShowHistory);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EaglePlan");
+        setTitle("EaglePlan - [Version 1.0a]");
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setSize(new java.awt.Dimension(1200, 800));
 
@@ -113,6 +123,8 @@ public class MainMenu extends javax.swing.JFrame {
         lblAppTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(1152, 862));
+
+        pnlSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         tblSlots.setAutoCreateRowSorter(true);
         tblSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -247,6 +259,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
+        btnAddEditDeleteSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnAddEditDeleteSlots.setText("Add/Edit/Delete Slots");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -269,24 +284,24 @@ public class MainMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTypeOfTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(27, 27, 27)
-                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(lblTypeOfTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                            .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tglExpanded)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,15 +329,18 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tglSlotCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCandidate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblCandidate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -355,6 +373,8 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Slots", pnlSlots);
+
+        pnlPairings.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         tblPairings.setAutoCreateRowSorter(true);
         tblPairings.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -390,6 +410,62 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Pairings", pnlPairings);
+
+        pnlReports.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Generic"));
+
+        btnrptLPCOPCLapseDates.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnrptLPCOPCLapseDates.setText("LPC/OPC Lapse Dates");
+        btnrptLPCOPCLapseDates.setToolTipText("");
+        btnrptLPCOPCLapseDates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrptLPCOPCLapseDatesActionPerformed(evt);
+            }
+        });
+
+        btnrptProvisionalPlanning.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnrptProvisionalPlanning.setText("Provisional Planning");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnrptLPCOPCLapseDates, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnrptProvisionalPlanning, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(814, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnrptLPCOPCLapseDates)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnrptProvisionalPlanning)
+                .addContainerGap(113, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlReportsLayout = new javax.swing.GroupLayout(pnlReports);
+        pnlReports.setLayout(pnlReportsLayout);
+        pnlReportsLayout.setHorizontalGroup(
+            pnlReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReportsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlReportsLayout.setVerticalGroup(
+            pnlReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReportsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(474, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Reports", pnlReports);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -467,6 +543,28 @@ public class MainMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnrptLPCOPCLapseDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrptLPCOPCLapseDatesActionPerformed
+        // TODO add your handling code here:
+        DBConnect rptLPCOPCLapseDate = new DBConnect();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            rptLPCOPCLapseDate.DBConnect();
+            //Connection con = DriverManager.getConnection("jdbc:mysql://" + strSQLHost + ":" + strSQLPort + "/" + strSQLDatabasename, strSQLUser, strSQLPassword);
+            String strReportPath = "C:\\Users\\Tinus Blaauw\\Desktop\\report.jrxml";
+            JasperReport jr = JasperCompileManager.compileReport(strReportPath);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, rptLPCOPCLapseDate.con);
+
+            JasperViewer.viewReport(jp, false);
+
+            rptLPCOPCLapseDate.con.close();
+
+            // TODO add your handling code here:
+        } catch (Exception ex) {
+            //showMessageDialog(null, ex.toString());
+        }
+        
+    }//GEN-LAST:event_btnrptLPCOPCLapseDatesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -535,6 +633,9 @@ public class MainMenu extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddEditDeleteSlots;
+    private javax.swing.JButton btnrptLPCOPCLapseDates;
+    private javax.swing.JButton btnrptProvisionalPlanning;
     private javax.swing.JDialog dlgSlotHistory;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -546,6 +647,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -561,6 +663,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPopupMenu pmnuMain;
     private javax.swing.JPanel pnlExpanded;
     private javax.swing.JPanel pnlPairings;
+    private javax.swing.JPanel pnlReports;
     private javax.swing.JPanel pnlSlots;
     private javax.swing.JTable tblPairings;
     private javax.swing.JTable tblSlots;
