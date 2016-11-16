@@ -4,10 +4,16 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -23,16 +29,15 @@ public class MainMenu extends javax.swing.JFrame {
      * Creates new form MainMenu
      */
     public MainMenu() {
-        initComponents();   
+        initComponents();
         tblSlotsCreate();
         tblPairingsCreate();
+        tblConfigurationCandidatesCreate();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         tblSlots.setRowSelectionInterval(0, 0);
-        
-        
-        //tblPairings.setRowSelectionInterval(0, 0);
 
+        //tblPairings.setRowSelectionInterval(0, 0);
         //table.changeSelection(0, 0, false, false);
         //tblSlots.setColumnModel(columnModel);
         //tblSlots.setModel(DbUtils.resultSetToTableModel(connect.rs));
@@ -51,8 +56,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         pmnuMain = new javax.swing.JPopupMenu();
         mnuShowHistory = new javax.swing.JMenuItem();
-        lblAppTitle = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pnlMainPanel = new javax.swing.JTabbedPane();
         pnlSlots = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSlots = new javax.swing.JTable();
@@ -84,6 +88,13 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnrptLPCOPCLapseDates = new javax.swing.JButton();
         btnrptProvisionalPlanning = new javax.swing.JButton();
+        pnlConfiguration = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JTabbedPane();
+        pnlCandidates = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblConfigurationCandidates = new javax.swing.JTable();
+        pnlLocation = new javax.swing.JPanel();
 
         dlgSlotHistory.setAlwaysOnTop(true);
 
@@ -117,12 +128,7 @@ public class MainMenu extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setSize(new java.awt.Dimension(1200, 800));
 
-        lblAppTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblAppTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAppTitle.setText("EaglePlan Version 1.1a");
-        lblAppTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1152, 862));
+        pnlMainPanel.setPreferredSize(new java.awt.Dimension(1152, 862));
 
         pnlSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -138,7 +144,15 @@ public class MainMenu extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "test", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tblSlots.setRowHeight(30);
         tblSlots.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSlots.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -369,10 +383,10 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Slots", pnlSlots);
+        pnlMainPanel.addTab("Slots", pnlSlots);
 
         pnlPairings.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -406,10 +420,10 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlPairingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(430, Short.MAX_VALUE))
+                .addContainerGap(470, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Pairings", pnlPairings);
+        pnlMainPanel.addTab("Pairings", pnlPairings);
 
         pnlReports.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
@@ -462,24 +476,96 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlReportsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(474, Short.MAX_VALUE))
+                .addContainerGap(514, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Reports", pnlReports);
+        pnlMainPanel.addTab("Reports", pnlReports);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        tblConfigurationCandidates.setAutoCreateRowSorter(true);
+        tblConfigurationCandidates.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tblConfigurationCandidates.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblConfigurationCandidates.setRowHeight(30);
+        jScrollPane4.setViewportView(tblConfigurationCandidates);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 261, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlCandidatesLayout = new javax.swing.GroupLayout(pnlCandidates);
+        pnlCandidates.setLayout(pnlCandidatesLayout);
+        pnlCandidatesLayout.setHorizontalGroup(
+            pnlCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCandidatesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlCandidatesLayout.setVerticalGroup(
+            pnlCandidatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCandidatesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel5.addTab("Candidates", pnlCandidates);
+
+        javax.swing.GroupLayout pnlLocationLayout = new javax.swing.GroupLayout(pnlLocation);
+        pnlLocation.setLayout(pnlLocationLayout);
+        pnlLocationLayout.setHorizontalGroup(
+            pnlLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1142, Short.MAX_VALUE)
+        );
+        pnlLocationLayout.setVerticalGroup(
+            pnlLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 732, Short.MAX_VALUE)
+        );
+
+        jPanel5.addTab("Location/Facility", pnlLocation);
+
+        javax.swing.GroupLayout pnlConfigurationLayout = new javax.swing.GroupLayout(pnlConfiguration);
+        pnlConfiguration.setLayout(pnlConfigurationLayout);
+        pnlConfigurationLayout.setHorizontalGroup(
+            pnlConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        pnlConfigurationLayout.setVerticalGroup(
+            pnlConfigurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5)
+        );
+
+        pnlMainPanel.addTab("Configuration", pnlConfiguration);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAppTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblAppTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE))
+            .addComponent(pnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
 
         pack();
@@ -562,7 +648,7 @@ public class MainMenu extends javax.swing.JFrame {
         } catch (Exception ex) {
             //showMessageDialog(null, ex.toString());
         }
-        
+
     }//GEN-LAST:event_btnrptLPCOPCLapseDatesActionPerformed
 
     /**
@@ -648,10 +734,11 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTabbedPane jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lblAppTitle;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCandidate1;
     private javax.swing.JLabel lblCandidate2;
     private javax.swing.JLabel lblDate;
@@ -661,10 +748,15 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblTypeOfTraining;
     private javax.swing.JMenuItem mnuShowHistory;
     private javax.swing.JPopupMenu pmnuMain;
+    private javax.swing.JPanel pnlCandidates;
+    private javax.swing.JPanel pnlConfiguration;
     private javax.swing.JPanel pnlExpanded;
+    private javax.swing.JPanel pnlLocation;
+    private javax.swing.JTabbedPane pnlMainPanel;
     private javax.swing.JPanel pnlPairings;
     private javax.swing.JPanel pnlReports;
     private javax.swing.JPanel pnlSlots;
+    private javax.swing.JTable tblConfigurationCandidates;
     private javax.swing.JTable tblPairings;
     private javax.swing.JTable tblSlots;
     private javax.swing.JToggleButton tglExpanded;
@@ -683,11 +775,24 @@ public class MainMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblSlotsCreate(): " + e);
         }
         //initComponents();
-        
-        
-        tblSlots.setModel(DbUtils.resultSetToTableModel(connSlots.rs));
-        //TableColumn column = null;
 
+        //TODO: Still to correct the checkbox
+        JCheckBox chkbox = new JCheckBox();
+        TableCellEditor editor = new DefaultCellEditor(chkbox);
+        tblSlots.setModel(DbUtils.resultSetToTableModel(connSlots.rs));
+        tblSlots.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblSlots.getColumnModel().getColumn(1).setPreferredWidth(5);
+        tblSlots.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tblSlots.getColumnModel().getColumn(3).setPreferredWidth(40);
+        tblSlots.getColumnModel().getColumn(4).setPreferredWidth(30);
+        tblSlots.getColumnModel().getColumn(5).setPreferredWidth(30);
+        tblSlots.getColumnModel().getColumn(6).setPreferredWidth(100);
+        tblSlots.getColumnModel().getColumn(7).setPreferredWidth(30);
+        tblSlots.getColumnModel().getColumn(8).setPreferredWidth(5);
+        tblSlots.getColumnModel().getColumn(8).setCellEditor(editor);
+        tblSlots.getColumnModel().getColumn(9).setPreferredWidth(5);
+
+        //TableColumn column = null;
     }
 
     private void tblPairingsCreate() {
@@ -696,17 +801,55 @@ public class MainMenu extends javax.swing.JFrame {
             conPairings.GetRS("select p.pair_id as 'Pairing ID', p.slot1 as 'Slot 1 ID', p.slot2 as 'Slot 2 ID' from pairings p;");
             //conPairings.rs.last();
             //JOptionPane.showMessageDialog(null, "Total records: " + (conPairings.rs.getRow()));
-            
+
             //TableColumn column = null;
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblPairingsCreate(): " + e);
         }
-        
+
         tblPairings.setModel(DbUtils.resultSetToTableModel(conPairings.rs));
-        
-          
-          
-          //TableColumn column = null;
+
+        //TableColumn column = null;
     }
 
+    public ArrayList<Slot> slotsList() {
+        ArrayList<Slot> slotsList = new ArrayList<Slot>();
+        DBConnect connSlot = new DBConnect();
+
+        try {
+            connSlot.GetRS("Select * from slots");
+            Slot slot;
+            while (connSlot.rs.next()) {
+                slot = new Slot(connSlot.rs.getInt("id"), connSlot.rs.getString("fleet"),
+                        connSlot.rs.getString("location"), connSlot.rs.getString("sim_reg"),
+                        connSlot.rs.getDate("date_time_start"), connSlot.rs.getString("candidate_1"),
+                        connSlot.rs.getString("candidate_2"), connSlot.rs.getString("training_type"),
+                        connSlot.rs.getString("instructor_1"), connSlot.rs.getString("instructor_2"),
+                        connSlot.rs.getString("observer_1"), connSlot.rs.getInt("version"),
+                        connSlot.rs.getDate("modified_time"), connSlot.rs.getBoolean("confirmed"),
+                        connSlot.rs.getBoolean("completed"));
+                slotsList.add(slot);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - ArrayList<Slot> slotsList(): " + e);
+        }
+        return slotsList;
+    }
+
+    private void tblConfigurationCandidatesCreate() {
+        DBConnect conConfCandidates = new DBConnect();
+        try {
+            conConfCandidates.GetRS("select * from view_configuration_candidates;");
+            //conPairings.rs.last();
+            //JOptionPane.showMessageDialog(null, "Total records: " + (conPairings.rs.getRow()));
+
+            //TableColumn column = null;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblConfigurationCandidatesCreate(): " + e);
+        }
+
+        tblConfigurationCandidates.setModel(DbUtils.resultSetToTableModel(conConfCandidates.rs));
+
+        //TableColumn column = null;
+    }
 }
