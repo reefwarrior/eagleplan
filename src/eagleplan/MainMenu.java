@@ -1,20 +1,27 @@
 package eagleplan;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -136,31 +143,39 @@ public class MainMenu extends javax.swing.JFrame {
         tblSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tblSlots.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "test", "Title 3", "Title 4"
+                "Slot ID", "A/C", "Location", "Date", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
-        tblSlots.setRowHeight(30);
-        tblSlots.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblSlots.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblSlotsMouseClicked(evt);
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tblSlots.setColumnSelectionAllowed(true);
+        tblSlots.setRowHeight(30);
+        tblSlots.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblSlots.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblSlots);
+        tblSlots.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tblSlots.getColumnModel().getColumnCount() > 0) {
+            tblSlots.getColumnModel().getColumn(2).setResizable(false);
+            tblSlots.getColumnModel().getColumn(3).setResizable(false);
+            tblSlots.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblSlots.getColumnModel().getColumn(3).setCellEditor(null);
+        }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Details of Slot"));
 
@@ -571,50 +586,6 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblSlotsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSlotsMouseClicked
-
-        try {
-            String tblSlotsID = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 0)).toString();
-            String tblCandidate1 = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 4)).toString();
-            String tblCandidate2 = "None";
-            if ((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 5)) != null) {
-                tblCandidate2 = ((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 5)).toString());
-            }
-            String tblTypeOfTraining = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 6)).toString();
-            String tblInstructor1 = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 7)).toString();
-            String tblDate = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 2)).toString();
-            String tblTime = (this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 3)).toString();
-            Boolean blnSlotConfirmed = Boolean.valueOf((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 8)).toString());
-            Boolean blnSlotCompleted = Boolean.valueOf((this.tblSlots.getValueAt(this.tblSlots.getSelectedRow(), 9)).toString());
-            if (blnSlotConfirmed) {
-                tglSlotConfirmed.setBackground(Color.green);
-                tglSlotConfirmed.setText("Confirmed.");
-            } else {
-                tglSlotConfirmed.setBackground(Color.red);
-                tglSlotConfirmed.setText("Not Confirmed Yet.");
-            }
-            tglSlotConfirmed.setSelected(blnSlotConfirmed);
-            if (blnSlotCompleted) {
-                tglSlotCompleted.setBackground(Color.cyan);
-                tglSlotCompleted.setText("Completed.");
-            } else {
-                tglSlotCompleted.setBackground(Color.orange);
-                tglSlotCompleted.setText("Not Completed Yet.");
-            }
-            tglSlotCompleted.setSelected(blnSlotCompleted);
-            lblSlotID.setText(tblSlotsID);
-            lblCandidate1.setText(tblCandidate1);
-            lblCandidate2.setText(tblCandidate2);
-            lblTypeOfTraining.setText(tblTypeOfTraining);
-            lblInstructor1.setText(tblInstructor1);
-            lblDate.setText(tblDate);
-            lblTime.setText(tblTime);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblSlotsMouseClicked: " + e);
-        }
-    }//GEN-LAST:event_tblSlotsMouseClicked
-
     private void tglExpandedPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tglExpandedPropertyChange
 
 // TODO add your handling code here:
@@ -765,36 +736,38 @@ public class MainMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tblSlotsCreate() {
-        DBConnect connSlots = new DBConnect();
-        try {
-            connSlots.GetRS("select s.slot_id as 'ID', s.slot_location as 'Location', Upper(DATE_FORMAT(s.slot_date_time_start,'%d-%b-%Y')) as 'Date', "
-                    + "Upper(DATE_FORMAT(s.slot_date_time_start,'%H:%m')) as 'Time',s.slot_candidate_1 as 'Candidate 1', "
-                    + "s.slot_candidate_2 as 'Candidate 2', s.slot_training_type as 'Type of Training', s.slot_instructor_1 as 'Instructor', "
-                    + "s.slot_confirmed as 'Confirmed', s.slot_completed as 'Completed' from slots s order by s.slot_date_time_start;");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - tblSlotsCreate(): " + e);
-        }
-        //initComponents();
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<Slot> list = getSlotsList();
+        DefaultTableModel model = (DefaultTableModel) tblSlots.getModel();
+        Object [] row = new Object [16];
+        for(int i = 0; i < list.size(); i++)
+        {
+            row[0] = list.get(i).getID();
+            row[1] = list.get(i).getFleet();
+            row[2] = list.get(i).getLocation();
+            
+            //String reformattedStr = myFormat.format(list.get(i).getDateStart().toString());
+            row[3] = list.get(i).getDateStart().toString();
+            row[4] = list.get(i).getSimRegistration();
+            row[5] = list.get(i).getDateStop();
+            row[6] = list.get(i).getCandidate1();
+            row[7] = list.get(i).getCandidate2();
+            row[8] = list.get(i).getTrainingType();
+            row[9] = list.get(i).getInstructor1();
+            row[10] = list.get(i).getInstructor2();
+            row[11] = list.get(i).getObserver1();
+            row[12] = list.get(i).getVersion();
+            row[13] = list.get(i).getModifiedDate();
+            row[14] = list.get(i).getConfirmed();
+            row[15] = list.get(i).getCompleted();
+            model.addRow(row);
+        };
+        //TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
 
-        //TODO: Still to correct the checkbox
-        JCheckBox chkbox = new JCheckBox();
-        TableCellEditor editor = new DefaultCellEditor(chkbox);
-        tblSlots.setModel(DbUtils.resultSetToTableModel(connSlots.rs));
-        tblSlots.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tblSlots.getColumnModel().getColumn(1).setPreferredWidth(5);
-        tblSlots.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblSlots.getColumnModel().getColumn(3).setPreferredWidth(40);
-        tblSlots.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tblSlots.getColumnModel().getColumn(5).setPreferredWidth(30);
-        tblSlots.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tblSlots.getColumnModel().getColumn(7).setPreferredWidth(30);
-        tblSlots.getColumnModel().getColumn(8).setPreferredWidth(5);
-        tblSlots.getColumnModel().getColumn(8).setCellEditor(editor);
-        tblSlots.getColumnModel().getColumn(9).setPreferredWidth(5);
-
-        //TableColumn column = null;
     }
 
+    
+    
     private void tblPairingsCreate() {
         DBConnect conPairings = new DBConnect();
         try {
@@ -812,28 +785,28 @@ public class MainMenu extends javax.swing.JFrame {
         //TableColumn column = null;
     }
 
-    public ArrayList<Slot> slotsList() {
-        ArrayList<Slot> slotsList = new ArrayList<Slot>();
+    public ArrayList<Slot> getSlotsList() {
+        ArrayList<Slot> SlotsList = new ArrayList<Slot>();
         DBConnect connSlot = new DBConnect();
 
         try {
             connSlot.GetRS("Select * from slots");
             Slot slot;
             while (connSlot.rs.next()) {
-                slot = new Slot(connSlot.rs.getInt("id"), connSlot.rs.getString("fleet"),
-                        connSlot.rs.getString("location"), connSlot.rs.getString("sim_reg"),
-                        connSlot.rs.getDate("date_time_start"), connSlot.rs.getString("candidate_1"),
+                slot = new Slot(connSlot.rs.getInt("id"), connSlot.rs.getString("fleet"),connSlot.rs.getString("location"), 
+                        connSlot.rs.getDate("date_time_start"),connSlot.rs.getString("sim_reg"), 
+                        connSlot.rs.getDate("date_time_end"), connSlot.rs.getString("candidate_1"),
                         connSlot.rs.getString("candidate_2"), connSlot.rs.getString("training_type"),
                         connSlot.rs.getString("instructor_1"), connSlot.rs.getString("instructor_2"),
                         connSlot.rs.getString("observer_1"), connSlot.rs.getInt("version"),
                         connSlot.rs.getDate("modified_time"), connSlot.rs.getBoolean("confirmed"),
                         connSlot.rs.getBoolean("completed"));
-                slotsList.add(slot);
+                SlotsList.add(slot);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - ArrayList<Slot> slotsList(): " + e);
         }
-        return slotsList;
+        return SlotsList;
     }
 
     private void tblConfigurationCandidatesCreate() {
