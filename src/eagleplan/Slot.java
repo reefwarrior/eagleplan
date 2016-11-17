@@ -8,7 +8,8 @@ public class Slot {
     private String Fleet;
     private String Location;
     private String SimRegistration;
-    private Date Date;
+    private Date DateStart;
+    private Date DateStop;
     private String Candidate1;
     private String Candidate2;
     private String TrainingType;
@@ -20,16 +21,16 @@ public class Slot {
     private Boolean Confirmed;
     private Boolean Completed;
 
-    public Slot(int ID, String Fleet, String Location, String SimRegistration, Date Date,
-            String Candidate1, String Candidate2, String TrainingType, String Instructor1,
+    public Slot(int ID, String Fleet, String Location, Date DateStart, String SimRegistration,
+            Date DateStop, String Candidate1, String Candidate2, String TrainingType, String Instructor1,
             String Instructor2, String Observer1, int Version, Date ModifiedDate, Boolean Confirmed,
-            Boolean Completed) 
-    {
+            Boolean Completed) {
         this.ID = ID;
         this.Fleet = Fleet;
         this.Location = Location;
         this.SimRegistration = SimRegistration;
-        this.Date = Date;
+        this.DateStart = DateStart;
+        this.DateStop = DateStop;
         this.Candidate1 = Candidate1;
         this.Candidate2 = Candidate2;
         this.TrainingType = TrainingType;
@@ -49,58 +50,61 @@ public class Slot {
     public String getFleet() {
         return Fleet;
     }
-    
+
     public String getLocation() {
         return Location;
+    }
+
+    public Date getDateStart() {
+        return DateStart;
     }
 
     public String getSimRegistration() {
         return SimRegistration;
     }
-    
-    public Date getDate() {
-        return Date;
+
+    public Date getDateStop() {
+        return DateStart;
     }
-    
+
     public String getCandidate1() {
         return Candidate1;
     }
-    
+
     public String getCandidate2() {
         return Candidate2;
     }
-    
+
     public String getTrainingType() {
         return TrainingType;
     }
-    
+
     public String getInstructor1() {
         return Instructor1;
     }
-    
+
     public String getInstructor2() {
         return Instructor2;
     }
-    
+
     public String getObserver1() {
         return Observer1;
     }
-    
+
     public int getVersion() {
         return Version;
     }
-    
-    public Date getModifiedDate () {
+
+    public Date getModifiedDate() {
         return ModifiedDate;
     }
-    
-    public Boolean getConfirmed () {
+
+    public Boolean getConfirmed() {
         return Confirmed;
     }
-    
-    public Boolean getCompleted () {
+
+    public Boolean getCompleted() {
         return Completed;
     }
-    
-}
 
+}
