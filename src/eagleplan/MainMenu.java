@@ -1,27 +1,29 @@
 package eagleplan;
 
-import java.awt.Color;
-import java.awt.Component;
+//import java.awt.Color;
+//import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.Date;
-import java.sql.ResultSet;
+//import java.sql.Date;
+//import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+//import java.sql.Statement;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
+//import javax.swing.DefaultCellEditor;
+//import javax.swing.JCheckBox;
+//import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
+//import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+//import javax.swing.table.TableCellEditor;
+//import javax.swing.table.TableCellRenderer;
+//import javax.swing.table.TableColumn;
+//import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -38,7 +40,7 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         tblSlotsCreate();
-        tblPairingsCreate();
+        //tblPairingsCreate();
         tblConfigurationCandidatesCreate();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -61,6 +63,10 @@ public class MainMenu extends javax.swing.JFrame {
 
         dlgSlotHistory = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblSlotHistory = new javax.swing.JTable();
+        btnClose = new javax.swing.JButton();
         pmnuMain = new javax.swing.JPopupMenu();
         mnuShowHistory = new javax.swing.JMenuItem();
         pnlMainPanel = new javax.swing.JTabbedPane();
@@ -88,6 +94,7 @@ public class MainMenu extends javax.swing.JFrame {
         pnlExpanded = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnAddEditDeleteSlots = new javax.swing.JButton();
+        cmdHistory = new javax.swing.JButton();
         pnlPairings = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPairings = new javax.swing.JTable();
@@ -103,17 +110,60 @@ public class MainMenu extends javax.swing.JFrame {
         tblConfigurationCandidates = new javax.swing.JTable();
         pnlLocation = new javax.swing.JPanel();
 
+        dlgSlotHistory.setTitle("EaglePlan - [Version 1.0a]");
         dlgSlotHistory.setAlwaysOnTop(true);
+
+        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Slot History");
+        jLabel8.setFocusTraversalPolicyProvider(true);
+        jLabel8.setOpaque(true);
+
+        tblSlotHistory.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Type", "Revision No", "Date", "Candidate 1", "Candidate 2", "Instructor 1", "Instructor 2", "Type of Training", "Version"
+            }
+        ));
+        jScrollPane3.setViewportView(tblSlotHistory);
+
+        btnClose.setText("Close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1254, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnClose)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addComponent(btnClose)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout dlgSlotHistoryLayout = new javax.swing.GroupLayout(dlgSlotHistory.getContentPane());
@@ -146,7 +196,7 @@ public class MainMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Slot ID", "A/C", "Location", "Date", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16"
+                "Slot ID", "A/C", "Loc", "Date", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16"
             }
         ) {
             Class[] types = new Class [] {
@@ -168,13 +218,17 @@ public class MainMenu extends javax.swing.JFrame {
         tblSlots.setRowHeight(30);
         tblSlots.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblSlots.getTableHeader().setReorderingAllowed(false);
+        tblSlots.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblSlotsMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSlots);
         tblSlots.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tblSlots.getColumnModel().getColumnCount() > 0) {
             tblSlots.getColumnModel().getColumn(2).setResizable(false);
             tblSlots.getColumnModel().getColumn(3).setResizable(false);
             tblSlots.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tblSlots.getColumnModel().getColumn(3).setCellEditor(null);
         }
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Details of Slot"));
@@ -285,11 +339,18 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlExpandedLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jButton1)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         btnAddEditDeleteSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAddEditDeleteSlots.setText("Add/Edit/Delete Slots");
+
+        cmdHistory.setText("History");
+        cmdHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdHistoryActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -303,7 +364,9 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblDate, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
@@ -327,12 +390,14 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
                             .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tglExpanded)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tglExpanded)
+                            .addComponent(cmdHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -370,14 +435,14 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmdHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tglExpanded, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout pnlSlotsLayout = new javax.swing.GroupLayout(pnlSlots);
@@ -398,7 +463,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pnlMainPanel.addTab("Slots", pnlSlots);
@@ -427,7 +492,7 @@ public class MainMenu extends javax.swing.JFrame {
             pnlPairingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPairingsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1117, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1165, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlPairingsLayout.setVerticalGroup(
@@ -465,7 +530,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnrptLPCOPCLapseDates, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnrptProvisionalPlanning, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(814, Short.MAX_VALUE))
+                .addContainerGap(862, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,7 +583,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1158, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,7 +615,7 @@ public class MainMenu extends javax.swing.JFrame {
         pnlLocation.setLayout(pnlLocationLayout);
         pnlLocationLayout.setHorizontalGroup(
             pnlLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1142, Short.MAX_VALUE)
+            .addGap(0, 1190, Short.MAX_VALUE)
         );
         pnlLocationLayout.setVerticalGroup(
             pnlLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -593,9 +658,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        dlgSlotHistory.setSize(600, 500);
-        dlgSlotHistory.setModalityType(Dialog.ModalityType.MODELESS);
-        dlgSlotHistory.setVisible(true);
+       
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -621,6 +684,30 @@ public class MainMenu extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnrptLPCOPCLapseDatesActionPerformed
+
+    private void tblSlotsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSlotsMouseReleased
+        // TODO add your handling code here:
+        lblDate.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 3).toString());
+        lblSlotID.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 0).toString());
+        
+                
+//showMessageDialog(nu
+    }//GEN-LAST:event_tblSlotsMouseReleased
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void cmdHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHistoryActionPerformed
+        // TODO add your handling code here:
+        //[1284, 468]
+        dlgSlotHistory.setSize(1284, 468);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        dlgSlotHistory.setLocation(dim.width / 2 - dlgSlotHistory.getSize().width / 2, dim.height / 2 - dlgSlotHistory.getSize().height / 2);
+
+        dlgSlotHistory.setModalityType(Dialog.ModalityType.MODELESS);
+        dlgSlotHistory.setVisible(true);
+    }//GEN-LAST:event_cmdHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -691,8 +778,10 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEditDeleteSlots;
+    private javax.swing.JButton btnClose;
     private javax.swing.JButton btnrptLPCOPCLapseDates;
     private javax.swing.JButton btnrptProvisionalPlanning;
+    private javax.swing.JButton cmdHistory;
     private javax.swing.JDialog dlgSlotHistory;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -702,6 +791,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -709,6 +799,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCandidate1;
     private javax.swing.JLabel lblCandidate2;
@@ -729,6 +820,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSlots;
     private javax.swing.JTable tblConfigurationCandidates;
     private javax.swing.JTable tblPairings;
+    private javax.swing.JTable tblSlotHistory;
     private javax.swing.JTable tblSlots;
     private javax.swing.JToggleButton tglExpanded;
     private javax.swing.JToggleButton tglSlotCompleted;
@@ -736,6 +828,9 @@ public class MainMenu extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void tblSlotsCreate() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JTextField.CENTER);
+        tblSlots.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
         SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Slot> list = getSlotsList();
         DefaultTableModel model = (DefaultTableModel) tblSlots.getModel();
@@ -761,7 +856,46 @@ public class MainMenu extends javax.swing.JFrame {
             row[14] = list.get(i).getConfirmed();
             row[15] = list.get(i).getCompleted();
             model.addRow(row);
+            tblSlots.setColumnSelectionAllowed(false);
         };
+        //tblSlotsSetupDateFormat();
+        //TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+
+    }
+
+    private void tblHistorySlots() {
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JTextField.CENTER);
+        tblSlotHistory.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<Slot> historyslot = getSlotsList();
+        DefaultTableModel model = (DefaultTableModel) tblSlots.getModel();
+        Object [] row = new Object [16];
+        for(int i = 0; i < historyslot.size(); i++)
+        {
+            row[0] = historyslot.get(i).getID();
+            row[1] = historyslot.get(i).getFleet();
+            row[2] = historyslot.get(i).getLocation();
+            
+            //String reformattedStr = myFormat.format(history.get(i).getDateStart().toString());
+            row[3] = historyslot.get(i).getDateStart().toString();
+            row[4] = historyslot.get(i).getSimRegistration();
+            row[5] = historyslot.get(i).getDateStop();
+            row[6] = historyslot.get(i).getCandidate1();
+            row[7] = historyslot.get(i).getCandidate2();
+            row[8] = historyslot.get(i).getTrainingType();
+            row[9] = historyslot.get(i).getInstructor1();
+            row[10] = historyslot.get(i).getInstructor2();
+            row[11] = historyslot.get(i).getObserver1();
+            row[12] = historyslot.get(i).getVersion();
+            row[13] = historyslot.get(i).getModifiedDate();
+            row[14] = historyslot.get(i).getConfirmed();
+            row[15] = historyslot.get(i).getCompleted();
+            model.addRow(row);
+            tblSlots.setColumnSelectionAllowed(false);
+        };
+        //tblSlotsSetupDateFormat();
         //TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
 
     }
@@ -785,6 +919,46 @@ public class MainMenu extends javax.swing.JFrame {
         //TableColumn column = null;
     }
 
+    
+    
+    public ArrayList<Slot> getHistoryList() {
+        ArrayList<Slot> HistoryList = new ArrayList<Slot>();
+        DBConnect connSlotHistory = new DBConnect();
+
+        try {
+            connSlotHistory.GetRS("Select * from slots_history where prim_key ='"+lblSlotID.getText().toString() +
+                   "'order by revision DESC'");
+            SlotHistory SlotHistory;
+            while (connSlotHistory.rs.next()) {
+                SlotHistory = new SlotHistory(connSlotHistory.rs.getString("action"), 
+                        connSlotHistory.rs.getInt("revision"),
+                        connSlotHistory.rs.getDate("dt_datetime"),
+                        connSlotHistory.rs.getInt("prim_key"),
+                        connSlotHistory.rs.getString("fleet"),
+                        connSlotHistory.rs.getString("location"), 
+                        connSlotHistory.rs.getDate("date_time_start"),
+                        connSlotHistory.rs.getString("sim_reg"), 
+                        connSlotHistory.rs.getDate("date_time_end"), 
+                        connSlotHistory.rs.getString("candidate_1"),
+                        connSlotHistory.rs.getString("candidate_2"), 
+                        connSlotHistory.rs.getString("training_type"),
+                        connSlotHistory.rs.getString("instructor_1"), 
+                        connSlotHistory.rs.getString("instructor_2"),
+                        connSlotHistory.rs.getString("observer_1"), 
+                        connSlotHistory.rs.getInt("version"),
+                        connSlotHistory.rs.getDate("modified_time"), 
+                        connSlotHistory.rs.getBoolean("confirmed"),
+                        connSlotHistory.rs.getBoolean("completed"));
+                HistoryList.add(SlotHistory);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - ArrayList<Slot> slotsList(): " + e);
+        }
+        return HistoryList;
+    }
+    
+    
+    
     public ArrayList<Slot> getSlotsList() {
         ArrayList<Slot> SlotsList = new ArrayList<Slot>();
         DBConnect connSlot = new DBConnect();
@@ -808,7 +982,7 @@ public class MainMenu extends javax.swing.JFrame {
         }
         return SlotsList;
     }
-
+ 
     private void tblConfigurationCandidatesCreate() {
         DBConnect conConfCandidates = new DBConnect();
         try {
