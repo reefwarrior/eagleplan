@@ -9,7 +9,7 @@ public class Pairing {
     private int Slot2;
     private Boolean Completed;
   
-    public Pairing(int Pair_ID, int Slot1, int Slot2, Boolean Complete) {
+    public Pairing(int ID, int Slot1, int Slot2, Boolean Completed) {
         this.ID = ID;
         this.Slot1 = Slot1;
         this.Slot2 = Slot2;
