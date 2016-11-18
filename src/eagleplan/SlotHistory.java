@@ -6,13 +6,13 @@ public class SlotHistory {
 
     private String Action;
     private int Revision;
-    private Date Dt_datetime;
+    private String Dt_datetime;
     private int Prim_key;
     private String Fleet;
     private String Location;
-    private Date DateStart;
+    private String DateStart;
     private String SimRegistration;
-    private Date DateStop;
+    private String DateStop;
     private String Candidate1;
     private String Candidate2;
     private String TrainingType;
@@ -24,8 +24,8 @@ public class SlotHistory {
     private Boolean Confirmed;
     private Boolean Completed;
 
-    public SlotHistory(String Action, int Revision, Date Dt_datetime, int Prim_key, String Fleet, String Location, Date DateStart, String SimRegistration,
-            Date DateStop, String Candidate1, String Candidate2, String TrainingType, String Instructor1,
+    public SlotHistory(String Action, int Revision, String Dt_datetime, int Prim_key, String Fleet, String Location, String DateStart, String SimRegistration,
+            String DateStop, String Candidate1, String Candidate2, String TrainingType, String Instructor1,
             String Instructor2, String Observer1, int Version, Date ModifiedDate, Boolean Confirmed,
             Boolean Completed) {
         this.Action = Action;
@@ -57,7 +57,7 @@ public class SlotHistory {
         return Revision;
     }
     
-    public Date Dt_datetime() {
+    public String Dt_datetime() {
         return Dt_datetime;
     }
     
@@ -74,7 +74,7 @@ public class SlotHistory {
         return Location;
     }
 
-    public Date getDateStart() {
+    public String getDateStart() {
         return DateStart;
     }
 
@@ -82,7 +82,7 @@ public class SlotHistory {
         return SimRegistration;
     }
 
-    public Date getDateStop() {
+    public String getDateStop() {
         return DateStart;
     }
 
