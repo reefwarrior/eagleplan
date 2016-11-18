@@ -2,12 +2,18 @@ package eagleplan;
 
 //import java.awt.Color;
 //import java.awt.Component;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import static java.lang.String.format;
+import java.util.*;
 //import java.sql.Date;
 //import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.DateFormat;
 //import java.sql.Statement;
 
 import java.text.SimpleDateFormat;
@@ -16,10 +22,14 @@ import java.util.ArrayList;
 //import javax.swing.JCheckBox;
 //import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JTable;
 //import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 //import javax.swing.table.TableCellEditor;
 //import javax.swing.table.TableCellRenderer;
 //import javax.swing.table.TableColumn;
@@ -39,7 +49,9 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        this.setSize(1192, 850);
         tblSlotsCreate();
+        tblSlots.setComponentPopupMenu(pmnuMain);
         //tblPairingsCreate();
         tblConfigurationCandidatesCreate();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -63,12 +75,14 @@ public class MainMenu extends javax.swing.JFrame {
 
         dlgSlotHistory = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblSlotHistory = new javax.swing.JTable();
         btnClose = new javax.swing.JButton();
         pmnuMain = new javax.swing.JPopupMenu();
         mnuShowHistory = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mnuAddEditDelete = new javax.swing.JMenuItem();
         pnlMainPanel = new javax.swing.JTabbedPane();
         pnlSlots = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -90,11 +104,34 @@ public class MainMenu extends javax.swing.JFrame {
         lblDate = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblTime = new javax.swing.JLabel();
-        tglExpanded = new javax.swing.JToggleButton();
         pnlExpanded = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblExpandedCandidate1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        lblExpandedCandidate2 = new javax.swing.JLabel();
+        lblExpandedInstructor1 = new javax.swing.JLabel();
+        lblExpandedInstructor2 = new javax.swing.JLabel();
+        lblExpandedObserver1 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        lblExpandedOPCLapseDate1 = new javax.swing.JLabel();
+        lblExpandedOPCLapseDate2 = new javax.swing.JLabel();
+        lblExpandedLPCLapseDate2 = new javax.swing.JLabel();
+        lblExpandedLPCLapseDate1 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        lblExpandedSlotStart = new javax.swing.JLabel();
+        lblExpandedSlotEnd = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        lblExpandedTypeOfTraining = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        lblExpandedVersion = new javax.swing.JLabel();
         btnAddEditDeleteSlots = new javax.swing.JButton();
-        cmdHistory = new javax.swing.JButton();
         pnlPairings = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPairings = new javax.swing.JTable();
@@ -113,13 +150,13 @@ public class MainMenu extends javax.swing.JFrame {
         dlgSlotHistory.setTitle("EaglePlan - [Version 1.0a]");
         dlgSlotHistory.setAlwaysOnTop(true);
 
-        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Slot History");
-        jLabel8.setFocusTraversalPolicyProvider(true);
-        jLabel8.setOpaque(true);
+        lblTitle.setBackground(new java.awt.Color(0, 0, 0));
+        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Slot History");
+        lblTitle.setFocusTraversalPolicyProvider(true);
+        lblTitle.setOpaque(true);
 
         tblSlotHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,7 +182,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +195,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel8)
+                .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
@@ -178,7 +215,16 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         mnuShowHistory.setText("Show History");
+        mnuShowHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuShowHistoryActionPerformed(evt);
+            }
+        });
         pmnuMain.add(mnuShowHistory);
+        pmnuMain.add(jSeparator1);
+
+        mnuAddEditDelete.setText("Add/Edit/Delete");
+        pmnuMain.add(mnuAddEditDelete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EaglePlan - [Version 1.0a]");
@@ -196,11 +242,11 @@ public class MainMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Slot ID", "A/C", "Loc", "Date", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11", "Title 12", "Title 13", "Title 14", "Title 15", "Title 16"
+                "Slot ID", "A/C", "Loc", "Date", "Reg", "Time", "Can 1", "Can 2", "Type", "Ins 1", "Ins 2", "Obs 1", "Version", "Title 14", "Confmd", "Complt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
@@ -221,6 +267,11 @@ public class MainMenu extends javax.swing.JFrame {
         tblSlots.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tblSlotsMouseReleased(evt);
+            }
+        });
+        tblSlots.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblSlotsKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(tblSlots);
@@ -284,10 +335,15 @@ public class MainMenu extends javax.swing.JFrame {
         lblInstructor1.setOpaque(true);
 
         tglSlotConfirmed.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        tglSlotConfirmed.setText("Slot Confirmation");
+        tglSlotConfirmed.setText("Slot Confirmed with Provider");
 
         tglSlotCompleted.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         tglSlotCompleted.setText("Slot Completed");
+        tglSlotCompleted.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tglSlotCompletedStateChanged(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -308,57 +364,217 @@ public class MainMenu extends javax.swing.JFrame {
         lblTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTime.setOpaque(true);
 
-        tglExpanded.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        tglExpanded.setText("...");
-        tglExpanded.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                tglExpandedPropertyChange(evt);
-            }
-        });
-
         pnlExpanded.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Candidate 1:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("Candidate 2:");
+
+        lblExpandedCandidate1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedCandidate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedCandidate1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel11.setText("Instructor 1:");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel12.setText("Instructor 2:");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel13.setText("Observer 1:");
+
+        lblExpandedCandidate2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedCandidate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedCandidate2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        lblExpandedInstructor1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedInstructor1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedInstructor1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        lblExpandedInstructor2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedInstructor2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedInstructor2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        lblExpandedObserver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedObserver1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedObserver1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel14.setText("OPC Lapses:");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setText("LPC Lapses:");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel16.setText("OPC Lapses:");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setText("LPC Lapses:");
+
+        lblExpandedOPCLapseDate1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        lblExpandedOPCLapseDate2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        lblExpandedLPCLapseDate2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0)));
+
+        lblExpandedLPCLapseDate1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0)));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel18.setText("Slot End:");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel19.setText("Slot Start:");
+
+        lblExpandedSlotStart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        lblExpandedSlotEnd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel20.setText("Type of Training:");
+
+        lblExpandedTypeOfTraining.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedTypeOfTraining.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedTypeOfTraining.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel21.setText("Version:");
+
+        lblExpandedVersion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         javax.swing.GroupLayout pnlExpandedLayout = new javax.swing.GroupLayout(pnlExpanded);
         pnlExpanded.setLayout(pnlExpandedLayout);
         pnlExpandedLayout.setHorizontalGroup(
             pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlExpandedLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(230, 230, 230))
+            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlExpandedLayout.createSequentialGroup()
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                                .addComponent(lblExpandedObserver1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel18)
+                                .addGap(37, 37, 37)
+                                .addComponent(lblExpandedSlotEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                                .addComponent(lblExpandedInstructor2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel19)
+                                .addGap(30, 30, 30)
+                                .addComponent(lblExpandedSlotStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(pnlExpandedLayout.createSequentialGroup()
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblExpandedTypeOfTraining, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel21)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblExpandedVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlExpandedLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblExpandedInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlExpandedLayout.createSequentialGroup()
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblExpandedCandidate1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblExpandedCandidate2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblExpandedOPCLapseDate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlExpandedLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblExpandedOPCLapseDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblExpandedLPCLapseDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblExpandedLPCLapseDate2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         pnlExpandedLayout.setVerticalGroup(
             pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlExpandedLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jButton1)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblExpandedCandidate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblExpandedLPCLapseDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblExpandedOPCLapseDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblExpandedCandidate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblExpandedOPCLapseDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblExpandedLPCLapseDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblExpandedInstructor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlExpandedLayout.createSequentialGroup()
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblExpandedInstructor2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(lblExpandedObserver1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlExpandedLayout.createSequentialGroup()
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(lblExpandedSlotStart, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(lblExpandedSlotEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel20)
+                    .addComponent(lblExpandedTypeOfTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblExpandedVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnAddEditDeleteSlots.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnAddEditDeleteSlots.setText("Add/Edit/Delete Slots");
 
-        cmdHistory.setText("History");
-        cmdHistory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdHistoryActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
@@ -390,16 +606,10 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                                .addComponent(tglSlotCompleted, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
-                            .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tglExpanded)
-                            .addComponent(cmdHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -436,13 +646,8 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(lblTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAddEditDeleteSlots, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmdHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tglExpanded, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(pnlExpanded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlSlotsLayout = new javax.swing.GroupLayout(pnlSlots);
@@ -462,8 +667,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pnlMainPanel.addTab("Slots", pnlSlots);
@@ -500,7 +705,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlPairingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(470, Short.MAX_VALUE))
+                .addContainerGap(517, Short.MAX_VALUE))
         );
 
         pnlMainPanel.addTab("Pairings", pnlPairings);
@@ -556,7 +761,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlReportsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(514, Short.MAX_VALUE))
+                .addContainerGap(561, Short.MAX_VALUE))
         );
 
         pnlMainPanel.addTab("Reports", pnlReports);
@@ -589,7 +794,7 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 261, Short.MAX_VALUE))
+                .addGap(0, 308, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlCandidatesLayout = new javax.swing.GroupLayout(pnlCandidates);
@@ -619,7 +824,7 @@ public class MainMenu extends javax.swing.JFrame {
         );
         pnlLocationLayout.setVerticalGroup(
             pnlLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 732, Short.MAX_VALUE)
+            .addGap(0, 779, Short.MAX_VALUE)
         );
 
         jPanel5.addTab("Location/Facility", pnlLocation);
@@ -645,23 +850,11 @@ public class MainMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(pnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tglExpandedPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tglExpandedPropertyChange
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_tglExpandedPropertyChange
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnrptLPCOPCLapseDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrptLPCOPCLapseDatesActionPerformed
         // TODO add your handling code here:
@@ -687,27 +880,104 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void tblSlotsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSlotsMouseReleased
         // TODO add your handling code here:
+        ArrayList<Slot> list = getSlotsList();
         lblDate.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 3).toString());
         lblSlotID.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 0).toString());
-        
-                
-//showMessageDialog(nu
+        lblCandidate1.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 6).toString());
+        if (tblSlots.getValueAt(tblSlots.getSelectedRow(), 7) != null) {
+            lblCandidate2.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 7).toString());
+        } else {
+            lblCandidate2.setText("No Candidate");
+        }
+        lblTypeOfTraining.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 8).toString());
+        if (tblSlots.getValueAt(tblSlots.getSelectedRow(), 9) != null) {
+            lblInstructor1.setText(tblSlots.getValueAt(tblSlots.getSelectedRow(), 9).toString());
+        } else {
+            lblInstructor1.setText("Not Assigned");
+        };
+        //String format = formats[i];
+
+            String ResultDate;
+            String ResultTime;
+            SimpleDateFormat TimeFormatter;
+            SimpleDateFormat DateFormatter;
+            DateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+            TimeFormatter = new SimpleDateFormat("HH:mm");
+            Date ParsedDate = list.get(tblSlots.getSelectedRow()).getDateBegin();
+            Date ParsedTime = list.get(tblSlots.getSelectedRow()).getTimeBegin();
+            
+            ResultDate = DateFormatter.format(ParsedDate);
+            ResultTime = TimeFormatter.format(ParsedTime);
+            lblDate.setText(ResultDate.toString().toUpperCase());
+            lblTime.setText(ResultTime.toString());
+            tglSlotCompleted.setSelected(Boolean.parseBoolean(tblSlots.getValueAt(tblSlots.getSelectedRow(),15).toString()));
+            getExpanded();
     }//GEN-LAST:event_tblSlotsMouseReleased
 
+    private void getExpanded(){
+        String LC = tblSlots.getValueAt(tblSlots.getSelectedRow(), 0).toString();
+        DBConnect connHistory = new DBConnect();
+
+        try {
+        String BuildSQL = "SELECT s.id AS 'slot_ID', "
+                + "s.date_time_begin AS 'Date Start', "
+                + "s.date_time_end AS 'Date Stop', "
+                + "s.candidate_1 AS 'CAN1', "
+                + "s.candidate_2 AS 'CAN2',s.instructor_1 AS 'INS1', "
+                + "s.instructor_2 AS 'INS2', s.observer_1 AS 'OBS1', "
+                + "s.version, c1.3lc as 'CAN1_3lc', "
+                + "c1.surname as 'CAN1_Surname', "
+                + "c1.short_name as 'CAN1_Short_Name',"
+                + "c1.position as 'CAN1_Position', "
+                + "c1.lpc_ld as 'CAN1_LPC_LD', "
+                + "c1.opc_ld as 'CAN1_OPC_LD', "
+                + "c2.3lc as 'CAN2_LC', "
+                + "c2.surname as 'CAN2_Surname', "
+                + "c2.short_name as 'CAN2_Shart_Name', "
+                + "c2.position as 'CAN2_Position',"
+                + "c2.lpc_ld as 'CAN2_LPC_LD', "
+                + "c2.opc_ld as 'CAN2_OPC_LD', "
+                + "i1.3lc as 'INS1_3LC', "
+                + "i1.full_name as 'INS1_FullName'"
+                + "FROM slots s, candidates c1, candidates c2, instructors i1"
+                + "where s.id=9 AND s.candidate_1=c1.3lc "
+                + "and s.candidate_2=c2.3lc and s.instructor_1=i1.3lc";
+    
+        showMessageDialog(null, BuildSQL);
+            connHistory.GetRS(BuildSQL);
+        }catch (SQLException e)
+    {
+        showMessageDialog(null, e.toString());
+            }
+    }
+        
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCloseActionPerformed
 
-    private void cmdHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHistoryActionPerformed
+    private void tblSlotsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblSlotsKeyPressed
         // TODO add your handling code here:
-        //[1284, 468]
+        
+    }//GEN-LAST:event_tblSlotsKeyPressed
+
+    private void tglSlotCompletedStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tglSlotCompletedStateChanged
+        // TODO add your handling code here:
+        if (tglSlotCompleted.isSelected()) {
+            tglSlotCompleted.setBackground(Color.green);
+        } else {
+            tglSlotCompleted.setBackground(tblSlots.getBackground());
+        }
+    }//GEN-LAST:event_tglSlotCompletedStateChanged
+
+    private void mnuShowHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuShowHistoryActionPerformed
         dlgSlotHistory.setSize(1284, 468);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         dlgSlotHistory.setLocation(dim.width / 2 - dlgSlotHistory.getSize().width / 2, dim.height / 2 - dlgSlotHistory.getSize().height / 2);
 
         dlgSlotHistory.setModalityType(Dialog.ModalityType.MODELESS);
         dlgSlotHistory.setVisible(true);
-    }//GEN-LAST:event_cmdHistoryActionPerformed
+        
+    }//GEN-LAST:event_mnuShowHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -781,17 +1051,27 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnrptLPCOPCLapseDates;
     private javax.swing.JButton btnrptProvisionalPlanning;
-    private javax.swing.JButton cmdHistory;
     private javax.swing.JDialog dlgSlotHistory;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -801,13 +1081,29 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblCandidate1;
     private javax.swing.JLabel lblCandidate2;
     private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblExpandedCandidate1;
+    private javax.swing.JLabel lblExpandedCandidate2;
+    private javax.swing.JLabel lblExpandedInstructor1;
+    private javax.swing.JLabel lblExpandedInstructor2;
+    private javax.swing.JLabel lblExpandedLPCLapseDate1;
+    private javax.swing.JLabel lblExpandedLPCLapseDate2;
+    private javax.swing.JLabel lblExpandedOPCLapseDate1;
+    private javax.swing.JLabel lblExpandedOPCLapseDate2;
+    private javax.swing.JLabel lblExpandedObserver1;
+    private javax.swing.JLabel lblExpandedSlotEnd;
+    private javax.swing.JLabel lblExpandedSlotStart;
+    private javax.swing.JLabel lblExpandedTypeOfTraining;
+    private javax.swing.JLabel lblExpandedVersion;
     private javax.swing.JLabel lblInstructor1;
-    private javax.swing.JLabel lblSlotID;
+    public javax.swing.JLabel lblSlotID;
     private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTypeOfTraining;
+    private javax.swing.JMenuItem mnuAddEditDelete;
     private javax.swing.JMenuItem mnuShowHistory;
     private javax.swing.JPopupMenu pmnuMain;
     private javax.swing.JPanel pnlCandidates;
@@ -822,7 +1118,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblPairings;
     private javax.swing.JTable tblSlotHistory;
     private javax.swing.JTable tblSlots;
-    private javax.swing.JToggleButton tglExpanded;
     private javax.swing.JToggleButton tglSlotCompleted;
     private javax.swing.JToggleButton tglSlotConfirmed;
     // End of variables declaration//GEN-END:variables
@@ -831,20 +1126,24 @@ public class MainMenu extends javax.swing.JFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JTextField.CENTER);
         tblSlots.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        tblSlots.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+        tblSlots.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        tblSlots.getColumnModel().getColumn(6).setCellRenderer( centerRenderer );
+        tblSlots.getColumnModel().getColumn(7).setCellRenderer( centerRenderer );
+        tblSlots.getColumnModel().getColumn(9).setCellRenderer( centerRenderer );
+        tblSlots.getColumnModel().getColumn(12).setCellRenderer( centerRenderer );
         SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+        //tblSlots.getColumnModel()
         ArrayList<Slot> list = getSlotsList();
         DefaultTableModel model = (DefaultTableModel) tblSlots.getModel();
-        Object [] row = new Object [16];
-        for(int i = 0; i < list.size(); i++)
-        {
+        Object[] row = new Object[16];
+        for (int i = 0; i < list.size(); i++) {
             row[0] = list.get(i).getID();
             row[1] = list.get(i).getFleet();
             row[2] = list.get(i).getLocation();
-            
-            //String reformattedStr = myFormat.format(list.get(i).getDateStart().toString());
-            row[3] = list.get(i).getDateStart().toString();
+            row[3] = list.get(i).getDateBegin();
             row[4] = list.get(i).getSimRegistration();
-            row[5] = list.get(i).getDateStop();
+            row[5] = list.get(i).getDateEnd();
             row[6] = list.get(i).getCandidate1();
             row[7] = list.get(i).getCandidate2();
             row[8] = list.get(i).getTrainingType();
@@ -857,41 +1156,52 @@ public class MainMenu extends javax.swing.JFrame {
             row[15] = list.get(i).getCompleted();
             model.addRow(row);
             tblSlots.setColumnSelectionAllowed(false);
+            TableColumn column = null;
+            column = tblSlots.getColumnModel().getColumn(0);
+            column.setPreferredWidth(60);
+            column = tblSlots.getColumnModel().getColumn(1);
+            column.setPreferredWidth(50);
+            column = tblSlots.getColumnModel().getColumn(3);
+            column.setPreferredWidth(120);
+            column = tblSlots.getColumnModel().getColumn(2);
+            column.setPreferredWidth(60);
+            column = tblSlots.getColumnModel().getColumn(8);
+            column.setPreferredWidth(100);
+            
+            
+
         };
+        
+        
+
         //tblSlotsSetupDateFormat();
         //TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
-
     }
 
-    private void tblHistorySlots() {
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JTextField.CENTER);
-        tblSlotHistory.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
-        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Slot> historyslot = getSlotsList();
+    private void tblHistorySlotsCreate() {
+
+        ArrayList<Slot> HistorySlot = getHistoryList();
         DefaultTableModel model = (DefaultTableModel) tblSlots.getModel();
-        Object [] row = new Object [16];
-        for(int i = 0; i < historyslot.size(); i++)
-        {
-            row[0] = historyslot.get(i).getID();
-            row[1] = historyslot.get(i).getFleet();
-            row[2] = historyslot.get(i).getLocation();
-            
+        Object[] row = new Object[8];
+        for (int i = 0; i < HistorySlot.size(); i++) {
+            // row[0] = HistorySlot.get(i).
+            row[1] = HistorySlot.get(i).getFleet();
+            row[2] = HistorySlot.get(i).getLocation();
+
             //String reformattedStr = myFormat.format(history.get(i).getDateStart().toString());
-            row[3] = historyslot.get(i).getDateStart().toString();
-            row[4] = historyslot.get(i).getSimRegistration();
-            row[5] = historyslot.get(i).getDateStop();
-            row[6] = historyslot.get(i).getCandidate1();
-            row[7] = historyslot.get(i).getCandidate2();
-            row[8] = historyslot.get(i).getTrainingType();
-            row[9] = historyslot.get(i).getInstructor1();
-            row[10] = historyslot.get(i).getInstructor2();
-            row[11] = historyslot.get(i).getObserver1();
-            row[12] = historyslot.get(i).getVersion();
-            row[13] = historyslot.get(i).getModifiedDate();
-            row[14] = historyslot.get(i).getConfirmed();
-            row[15] = historyslot.get(i).getCompleted();
+            row[3] = HistorySlot.get(i).getDateStart().toString();
+            row[4] = HistorySlot.get(i).getSimRegistration();
+            row[5] = HistorySlot.get(i).getDateStop();
+            row[6] = HistorySlot.get(i).getCandidate1();
+            row[7] = HistorySlot.get(i).getCandidate2();
+            row[8] = HistorySlot.get(i).getTrainingType();
+            row[9] = HistorySlot.get(i).getInstructor1();
+            row[10] = HistorySlot.get(i).getInstructor2();
+            row[11] = HistorySlot.get(i).getObserver1();
+            row[12] = HistorySlot.get(i).getVersion();
+            row[13] = HistorySlot.get(i).getModifiedDate();
+            row[14] = HistorySlot.get(i).getConfirmed();
+            row[15] = HistorySlot.get(i).getCompleted();
             model.addRow(row);
             tblSlots.setColumnSelectionAllowed(false);
         };
@@ -900,8 +1210,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     }
 
-    
-    
     private void tblPairingsCreate() {
         DBConnect conPairings = new DBConnect();
         try {
@@ -919,46 +1227,42 @@ public class MainMenu extends javax.swing.JFrame {
         //TableColumn column = null;
     }
 
-    
-    
     public ArrayList<Slot> getHistoryList() {
         ArrayList<Slot> HistoryList = new ArrayList<Slot>();
         DBConnect connSlotHistory = new DBConnect();
 
         try {
-            connSlotHistory.GetRS("Select * from slots_history where prim_key ='"+lblSlotID.getText().toString() +
-                   "'order by revision DESC'");
+            connSlotHistory.GetRS("Select * from slots_history where prim_key ='" + lblSlotID.getText().toString()
+                    + "'order by revision DESC'");
             SlotHistory SlotHistory;
             while (connSlotHistory.rs.next()) {
-                SlotHistory = new SlotHistory(connSlotHistory.rs.getString("action"), 
+                SlotHistory = new SlotHistory(connSlotHistory.rs.getString("action"),
                         connSlotHistory.rs.getInt("revision"),
-                        connSlotHistory.rs.getDate("dt_datetime"),
+                        connSlotHistory.rs.getString("dt_datetime"),
                         connSlotHistory.rs.getInt("prim_key"),
                         connSlotHistory.rs.getString("fleet"),
-                        connSlotHistory.rs.getString("location"), 
-                        connSlotHistory.rs.getDate("date_time_start"),
-                        connSlotHistory.rs.getString("sim_reg"), 
-                        connSlotHistory.rs.getDate("date_time_end"), 
+                        connSlotHistory.rs.getString("location"),
+                        connSlotHistory.rs.getString("date_time_start"),
+                        connSlotHistory.rs.getString("sim_reg"),
+                        connSlotHistory.rs.getString("date_time_end"),
                         connSlotHistory.rs.getString("candidate_1"),
-                        connSlotHistory.rs.getString("candidate_2"), 
+                        connSlotHistory.rs.getString("candidate_2"),
                         connSlotHistory.rs.getString("training_type"),
-                        connSlotHistory.rs.getString("instructor_1"), 
+                        connSlotHistory.rs.getString("instructor_1"),
                         connSlotHistory.rs.getString("instructor_2"),
-                        connSlotHistory.rs.getString("observer_1"), 
+                        connSlotHistory.rs.getString("observer_1"),
                         connSlotHistory.rs.getInt("version"),
-                        connSlotHistory.rs.getDate("modified_time"), 
+                        connSlotHistory.rs.getDate("modified_time"),
                         connSlotHistory.rs.getBoolean("confirmed"),
                         connSlotHistory.rs.getBoolean("completed"));
-                HistoryList.add(SlotHistory);
+                //HistoryList.add(SlotHistory);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - ArrayList<Slot> slotsList(): " + e);
         }
         return HistoryList;
     }
-    
-    
-    
+
     public ArrayList<Slot> getSlotsList() {
         ArrayList<Slot> SlotsList = new ArrayList<Slot>();
         DBConnect connSlot = new DBConnect();
@@ -967,13 +1271,23 @@ public class MainMenu extends javax.swing.JFrame {
             connSlot.GetRS("Select * from slots");
             Slot slot;
             while (connSlot.rs.next()) {
-                slot = new Slot(connSlot.rs.getInt("id"), connSlot.rs.getString("fleet"),connSlot.rs.getString("location"), 
-                        connSlot.rs.getDate("date_time_start"),connSlot.rs.getString("sim_reg"), 
-                        connSlot.rs.getDate("date_time_end"), connSlot.rs.getString("candidate_1"),
-                        connSlot.rs.getString("candidate_2"), connSlot.rs.getString("training_type"),
-                        connSlot.rs.getString("instructor_1"), connSlot.rs.getString("instructor_2"),
-                        connSlot.rs.getString("observer_1"), connSlot.rs.getInt("version"),
-                        connSlot.rs.getDate("modified_time"), connSlot.rs.getBoolean("confirmed"),
+                slot = new Slot(connSlot.rs.getInt("id"),
+                        connSlot.rs.getString("fleet"),
+                        connSlot.rs.getString("location"),
+                        connSlot.rs.getDate("date_time_begin"),
+                        connSlot.rs.getTime("date_time_begin"),
+                        connSlot.rs.getString("sim_reg"),
+                        connSlot.rs.getDate("date_time_end"),
+                        connSlot.rs.getTime("date_time_end"),
+                        connSlot.rs.getString("candidate_1"),
+                        connSlot.rs.getString("candidate_2"),
+                        connSlot.rs.getString("training_type"),
+                        connSlot.rs.getString("instructor_1"),
+                        connSlot.rs.getString("instructor_2"),
+                        connSlot.rs.getString("observer_1"),
+                        connSlot.rs.getInt("version"),
+                        connSlot.rs.getDate("modified_time"),
+                        connSlot.rs.getBoolean("confirmed"),
                         connSlot.rs.getBoolean("completed"));
                 SlotsList.add(slot);
             }
@@ -982,7 +1296,7 @@ public class MainMenu extends javax.swing.JFrame {
         }
         return SlotsList;
     }
- 
+
     private void tblConfigurationCandidatesCreate() {
         DBConnect conConfCandidates = new DBConnect();
         try {
