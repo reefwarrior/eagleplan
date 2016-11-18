@@ -1,6 +1,7 @@
 package eagleplan;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Slot {
 
@@ -8,8 +9,10 @@ public class Slot {
     private String Fleet;
     private String Location;
     private String SimRegistration;
-    private Date DateStart;
-    private Date DateStop;
+    private Date DateBegin;
+    private Time TimeBegin;
+    private Date DateEnd;
+    private Time TimeEnd;
     private String Candidate1;
     private String Candidate2;
     private String TrainingType;
@@ -21,16 +24,18 @@ public class Slot {
     private Boolean Confirmed;
     private Boolean Completed;
 
-    public Slot(int ID, String Fleet, String Location, Date DateStart, String SimRegistration,
-            Date DateStop, String Candidate1, String Candidate2, String TrainingType, String Instructor1,
+    public Slot(int ID, String Fleet, String Location, Date DateBegin, Time TimeBegin, String SimRegistration,
+            Date DateEnd, Time TimeEnd, String Candidate1, String Candidate2, String TrainingType, String Instructor1,
             String Instructor2, String Observer1, int Version, Date ModifiedDate, Boolean Confirmed,
             Boolean Completed) {
         this.ID = ID;
         this.Fleet = Fleet;
         this.Location = Location;
         this.SimRegistration = SimRegistration;
-        this.DateStart = DateStart;
-        this.DateStop = DateStop;
+        this.DateBegin = DateBegin;
+        this.TimeBegin = TimeBegin;
+        this.DateEnd = DateEnd;
+        this.TimeEnd = TimeEnd;
         this.Candidate1 = Candidate1;
         this.Candidate2 = Candidate2;
         this.TrainingType = TrainingType;
@@ -55,18 +60,25 @@ public class Slot {
         return Location;
     }
 
-    public Date getDateStart() {
-        return DateStart;
+    public Date getDateBegin() {
+        return DateBegin;
     }
 
+    public Time getTimeBegin() {
+        return TimeBegin;
+    }
+    
     public String getSimRegistration() {
         return SimRegistration;
     }
 
-    public Date getDateStop() {
-        return DateStart;
+    public Date getDateEnd() {
+        return DateEnd;
     }
 
+    public Time getTimeEnd() {
+        return TimeEnd;
+    }
     public String getCandidate1() {
         return Candidate1;
     }
