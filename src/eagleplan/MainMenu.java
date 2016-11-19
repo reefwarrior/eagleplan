@@ -131,6 +131,8 @@ public class MainMenu extends javax.swing.JFrame {
         lblExpandedTypeOfTraining = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         lblExpandedVersion = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         btnAddEditDeleteSlots = new javax.swing.JButton();
         pnlPairings = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -372,7 +374,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("Candidate 2:");
 
-        lblExpandedCandidate1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedCandidate1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedCandidate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedCandidate1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
@@ -385,19 +387,19 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel13.setText("Observer 1:");
 
-        lblExpandedCandidate2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedCandidate2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedCandidate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedCandidate2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
-        lblExpandedInstructor1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedInstructor1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedInstructor1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedInstructor1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
-        lblExpandedInstructor2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedInstructor2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedInstructor2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedInstructor2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
-        lblExpandedObserver1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedObserver1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedObserver1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedObserver1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
@@ -413,12 +415,20 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("LPC Lapses:");
 
+        lblExpandedOPCLapseDate1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedOPCLapseDate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedOPCLapseDate1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
+        lblExpandedOPCLapseDate2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedOPCLapseDate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedOPCLapseDate2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
+        lblExpandedLPCLapseDate2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedLPCLapseDate2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedLPCLapseDate2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0)));
 
+        lblExpandedLPCLapseDate1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedLPCLapseDate1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedLPCLapseDate1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 0)));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -427,21 +437,32 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel19.setText("Slot Start:");
 
+        lblExpandedSlotStart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedSlotStart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedSlotStart.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
+        lblExpandedSlotEnd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedSlotEnd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedSlotEnd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel20.setText("Type of Training:");
 
-        lblExpandedTypeOfTraining.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblExpandedTypeOfTraining.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedTypeOfTraining.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedTypeOfTraining.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Version:");
 
+        lblExpandedVersion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblExpandedVersion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("Facility:");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         javax.swing.GroupLayout pnlExpandedLayout = new javax.swing.GroupLayout(pnlExpanded);
         pnlExpanded.setLayout(pnlExpandedLayout);
@@ -480,7 +501,10 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblExpandedInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlExpandedLayout.createSequentialGroup()
                         .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlExpandedLayout.createSequentialGroup()
@@ -534,9 +558,13 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(lblExpandedOPCLapseDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblExpandedLPCLapseDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblExpandedInstructor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblExpandedInstructor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlExpandedLayout.createSequentialGroup()
@@ -615,9 +643,9 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSlotID, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -629,9 +657,11 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(lblCandidate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5)
                             .addComponent(lblInstructor1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tglSlotCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tglSlotConfirmed, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tglSlotCompleted, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -705,7 +735,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlPairingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(517, Short.MAX_VALUE))
+                .addContainerGap(518, Short.MAX_VALUE))
         );
 
         pnlMainPanel.addTab("Pairings", pnlPairings);
@@ -761,7 +791,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(pnlReportsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(561, Short.MAX_VALUE))
+                .addContainerGap(562, Short.MAX_VALUE))
         );
 
         pnlMainPanel.addTab("Reports", pnlReports);
@@ -794,7 +824,7 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 308, Short.MAX_VALUE))
+                .addGap(0, 309, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlCandidatesLayout = new javax.swing.GroupLayout(pnlCandidates);
@@ -824,7 +854,7 @@ public class MainMenu extends javax.swing.JFrame {
         );
         pnlLocationLayout.setVerticalGroup(
             pnlLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 779, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
         );
 
         jPanel5.addTab("Location/Facility", pnlLocation);
@@ -850,7 +880,7 @@ public class MainMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
+            .addComponent(pnlMainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
         );
 
         pack();
@@ -920,32 +950,103 @@ public class MainMenu extends javax.swing.JFrame {
 
         try {
         String BuildSQL = "SELECT s.id AS 'slot_ID', "
-                + "s.date_time_begin AS 'Date Start', "
-                + "s.date_time_end AS 'Date Stop', "
+                + "s.date_time_begin AS 'Date_Time_Start', "
+                + "s.date_time_end AS 'Date_Time_Stop', "
                 + "s.candidate_1 AS 'CAN1', "
                 + "s.candidate_2 AS 'CAN2',s.instructor_1 AS 'INS1', "
                 + "s.instructor_2 AS 'INS2', s.observer_1 AS 'OBS1', "
-                + "s.version, c1.3lc as 'CAN1_3lc', "
+                + "s.version, s.sim_reg ,c1.3lc as 'CAN1_3lc', "
                 + "c1.surname as 'CAN1_Surname', "
-                + "c1.short_name as 'CAN1_Short_Name',"
+                + "c1.short_name as 'CAN1_Short_Name', "
                 + "c1.position as 'CAN1_Position', "
                 + "c1.lpc_ld as 'CAN1_LPC_LD', "
                 + "c1.opc_ld as 'CAN1_OPC_LD', "
                 + "c2.3lc as 'CAN2_LC', "
                 + "c2.surname as 'CAN2_Surname', "
-                + "c2.short_name as 'CAN2_Shart_Name', "
+                + "c2.short_name as 'CAN2_Short_Name', "
                 + "c2.position as 'CAN2_Position',"
                 + "c2.lpc_ld as 'CAN2_LPC_LD', "
                 + "c2.opc_ld as 'CAN2_OPC_LD', "
                 + "i1.3lc as 'INS1_3LC', "
-                + "i1.full_name as 'INS1_FullName'"
-                + "FROM slots s, candidates c1, candidates c2, instructors i1"
-                + "where s.id=9 AND s.candidate_1=c1.3lc "
-                + "and s.candidate_2=c2.3lc and s.instructor_1=i1.3lc";
+                + "i1.full_name as 'INS1_FullName', "
+                + "l.location_expanded as 'LOC_Expanded', "
+                + "l.location_reg as 'LOC_Registration' "
+                + "FROM slots s, candidates c1, candidates c2, instructors i1, location l "
+                + "where s.id='" + lblSlotID.getText().toString() + "' AND s.candidate_1=c1.3lc "
+                + "and s.candidate_2=c2.3lc and s.instructor_1=i1.3lc and s.sim_reg=l.location_reg";
     
-        showMessageDialog(null, BuildSQL);
+        //showMessageDialog(null, BuildSQL);
             connHistory.GetRS(BuildSQL);
-        }catch (SQLException e)
+            
+            //Setup Formatters
+            String ResultDateCAN1OPC;
+            String ResultDateCAN1LPC;
+            String ResultDateCAN2OPC;
+            String ResultDateCAN2LPC;
+            String ResultDateStart;
+            String ResultDateStop;
+            String ResultTimeStart;
+            String ResultTimeStop;
+            //String ParsedDateCAN1OPC;
+            //String ParsedDateCAN1LPC;
+            //String ParsedDateCAN2OPC;
+            //String ParsedDateCAN2LPC;
+            SimpleDateFormat TimeFormatter;
+            SimpleDateFormat DateFormatter;
+            SimpleDateFormat DateTimeFormatter;
+            DateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+            TimeFormatter = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+            Date ParsedDateCAN1OPC = connHistory.rs.getDate("CAN1_OPC_LD");
+            Date ParsedDateCAN1LPC = connHistory.rs.getDate("CAN1_LPC_LD");
+            Date ParsedDateCAN2OPC = connHistory.rs.getDate("CAN2_OPC_LD");
+            Date ParsedDateCAN2LPC = connHistory.rs.getDate("CAN2_LPC_LD");
+            Date ParsedDateStart = connHistory.rs.getDate("Date_Time_Start");
+            Date ParsedDateStop = connHistory.rs.getDate("Date_Time_Stop");
+            Time ParsedTimeStart = connHistory.rs.getTime("Date_Time_Start");
+            Time ParsedTimeStop = connHistory.rs.getTime("Date_Time_Stop");
+            ResultDateCAN1OPC = DateFormatter.format(ParsedDateCAN1OPC);
+            ResultDateCAN1LPC = DateFormatter.format(ParsedDateCAN1LPC);
+            ResultDateCAN2OPC = DateFormatter.format(ParsedDateCAN2OPC);
+            ResultDateCAN2LPC = DateFormatter.format(ParsedDateCAN2LPC);
+            ResultDateStart = DateFormatter.format(ParsedDateStart);
+            ResultDateStop = DateFormatter.format(ParsedDateStop);
+            ResultTimeStart = TimeFormatter.format(ParsedTimeStart);
+            ResultTimeStop = TimeFormatter.format(ParsedTimeStop);
+            //Date ParsedDate = list.get(tblSlots.getSelectedRow()).getDateBegin();
+            //Date ParsedTime = list.get(tblSlots.getSelectedRow()).getTimeBegin();
+            //ResultDate = DateFormatter.format(ParsedDate);
+            //ResultTime = TimeFormatter.format(ParsedTime);
+            
+            if (connHistory.rs.getString("CAN1_Position").equals("CPT")) 
+            {
+                lblExpandedCandidate1.setText("Captain " + connHistory.rs.getString("CAN1_Short_Name"));
+                lblExpandedOPCLapseDate1.setText(ResultDateCAN1OPC);
+                lblExpandedLPCLapseDate1.setText(ResultDateCAN1LPC);
+            }
+            if (connHistory.rs.getString("CAN1_Position").equals("F/O")) 
+            {
+                lblExpandedCandidate1.setText("First Officer " + connHistory.rs.getString("CAN1_Short_Name"));
+                lblExpandedOPCLapseDate1.setText(ResultDateCAN1OPC);
+                lblExpandedLPCLapseDate1.setText(ResultDateCAN1LPC);
+            }
+            if (connHistory.rs.getString("CAN2_Position").equals("CPT")) 
+            {
+                lblExpandedCandidate2.setText("Captain " + connHistory.rs.getString("CAN2_Short_Name"));
+                lblExpandedOPCLapseDate2.setText(ResultDateCAN2OPC);
+                lblExpandedLPCLapseDate2.setText(ResultDateCAN2LPC);  
+            }
+            if (connHistory.rs.getString("CAN2_Position").equals("F/O")) 
+            {
+                lblExpandedCandidate2.setText("First Officer " + connHistory.rs.getString("CAN2_Short_Name"));
+                lblExpandedOPCLapseDate2.setText(ResultDateCAN2OPC);
+                lblExpandedLPCLapseDate2.setText(ResultDateCAN2LPC);
+            }
+            lblExpandedInstructor1.setText("Captain " + connHistory.rs.getString("INS1_FullName").toString());
+            lblExpandedSlotStart.setText(ResultDateStart + " " + ResultTimeStart);
+            lblExpandedSlotEnd.setText(ResultDateStop + " " + ResultTimeStop);
+        
+        }catch (Exception e)
     {
         showMessageDialog(null, e.toString());
             }
@@ -1066,11 +1167,13 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
