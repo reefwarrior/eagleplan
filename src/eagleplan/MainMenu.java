@@ -132,7 +132,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         lblExpandedVersion = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblExpandedFacility = new javax.swing.JLabel();
         btnAddEditDeleteSlots = new javax.swing.JButton();
         pnlPairings = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -456,13 +456,15 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel21.setText("Version:");
 
         lblExpandedVersion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpandedVersion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Facility:");
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
+        lblExpandedFacility.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblExpandedFacility.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblExpandedFacility.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 255)));
 
         javax.swing.GroupLayout pnlExpandedLayout = new javax.swing.GroupLayout(pnlExpanded);
         pnlExpanded.setLayout(pnlExpandedLayout);
@@ -504,7 +506,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblExpandedFacility, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlExpandedLayout.createSequentialGroup()
                         .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlExpandedLayout.createSequentialGroup()
@@ -564,7 +566,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(lblExpandedInstructor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblExpandedFacility, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlExpandedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlExpandedLayout.createSequentialGroup()
@@ -955,7 +957,7 @@ public class MainMenu extends javax.swing.JFrame {
                 + "s.candidate_1 AS 'CAN1', "
                 + "s.candidate_2 AS 'CAN2',s.instructor_1 AS 'INS1', "
                 + "s.instructor_2 AS 'INS2', s.observer_1 AS 'OBS1', "
-                + "s.version, s.sim_reg ,c1.3lc as 'CAN1_3lc', "
+                + "s.version, s.sim_reg, s.training_type,c1.3lc as 'CAN1_3lc', "
                 + "c1.surname as 'CAN1_Surname', "
                 + "c1.short_name as 'CAN1_Short_Name', "
                 + "c1.position as 'CAN1_Position', "
@@ -970,15 +972,19 @@ public class MainMenu extends javax.swing.JFrame {
                 + "i1.3lc as 'INS1_3LC', "
                 + "i1.full_name as 'INS1_FullName', "
                 + "l.location_expanded as 'LOC_Expanded', "
-                + "l.location_reg as 'LOC_Registration' "
-                + "FROM slots s, candidates c1, candidates c2, instructors i1, location l "
+                + "l.location_reg as 'LOC_Registration', "
+                + "t.abbreviation as 'T_Abb', "
+                + "t.expanded as 'T_Expanded' "
+                + "FROM slots s, candidates c1, candidates c2, instructors i1, location l, trainingtype t "
                 + "where s.id='" + lblSlotID.getText().toString() + "' AND s.candidate_1=c1.3lc "
-                + "and s.candidate_2=c2.3lc and s.instructor_1=i1.3lc and s.sim_reg=l.location_reg";
+                + "and s.candidate_2=c2.3lc and s.instructor_1=i1.3lc and s.sim_reg=l.location_reg " 
+                + "and s.training_type=t.abbreviation";
     
         //showMessageDialog(null, BuildSQL);
             connHistory.GetRS(BuildSQL);
             
             //Setup Formatters
+            int NumberInHistory = 0;
             String ResultDateCAN1OPC;
             String ResultDateCAN1LPC;
             String ResultDateCAN2OPC;
@@ -997,7 +1003,31 @@ public class MainMenu extends javax.swing.JFrame {
             DateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
             TimeFormatter = new SimpleDateFormat("HH:mm");
             DateTimeFormatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
+            
+            Date TestDate = new Date();
+            TestDate = null;
+            
+            try {
+            TestDate = connHistory.rs.getDate("CAN1_OPC_LD");
+            showMessageDialog(null,"Lapse date Found!");
+            } catch (Exception e) {
+                lblExpandedOPCLapseDate1.setText("No Data Found");
+            }
+            
+            if (TestDate != null){
+                    showMessageDialog(null, "Lapse Date Found!");
+                    } else {
+                    showMessageDialog(null, "No Lapse Date Found!");
+                }
+           
+            //if (connHistory.rs.getDate("CAN1_OPC_LD").equals(null)) {
+            //    showMessageDialog(null, "No Candidate");
+            //}
+            //showMessageDialog(null, connHistory.rs.getDate("CAN1_OPC_LD").toString());
             Date ParsedDateCAN1OPC = connHistory.rs.getDate("CAN1_OPC_LD");
+            //if (ParsedDateCAN1OPC.equals(null)) {
+            //    showMessageDialog(null, "No Candidate");
+            //}
             Date ParsedDateCAN1LPC = connHistory.rs.getDate("CAN1_LPC_LD");
             Date ParsedDateCAN2OPC = connHistory.rs.getDate("CAN2_OPC_LD");
             Date ParsedDateCAN2LPC = connHistory.rs.getDate("CAN2_LPC_LD");
@@ -1017,6 +1047,12 @@ public class MainMenu extends javax.swing.JFrame {
             //Date ParsedTime = list.get(tblSlots.getSelectedRow()).getTimeBegin();
             //ResultDate = DateFormatter.format(ParsedDate);
             //ResultTime = TimeFormatter.format(ParsedTime);
+            
+            if (connHistory.rs.getString("CAN2_Short_Name").equals(null))
+            {
+                showMessageDialog(null, "No Candidate");
+            }
+            
             
             if (connHistory.rs.getString("CAN1_Position").equals("CPT")) 
             {
@@ -1045,8 +1081,29 @@ public class MainMenu extends javax.swing.JFrame {
             lblExpandedInstructor1.setText("Captain " + connHistory.rs.getString("INS1_FullName").toString());
             lblExpandedSlotStart.setText(ResultDateStart + " " + ResultTimeStart);
             lblExpandedSlotEnd.setText(ResultDateStop + " " + ResultTimeStop);
-        
-        }catch (Exception e)
+            lblExpandedFacility.setText(connHistory.rs.getString("LOC_Registration") + " located at " + connHistory.rs.getString("LOC_Expanded")  );
+            lblExpandedTypeOfTraining.setText(connHistory.rs.getString("T_Expanded"));
+            lblExpandedVersion.setText(connHistory.rs.getString("s.version"));
+            
+            try {
+            connHistory.GetRS("Select * from slots_history where prim_key = '" + lblSlotID.getText().toString() + "'");
+            
+                    while (connHistory.rs.next()) {
+                            NumberInHistory++;
+                    }
+            if (NumberInHistory > 0) {
+                mnuShowHistory.setEnabled(true);
+                getHistoryList();
+            }
+            
+            if (NumberInHistory < 1) {
+                mnuShowHistory.setEnabled(false);
+            }
+            }
+            catch (SQLException e) {
+            
+            }
+        }catch (SQLException e)
     {
         showMessageDialog(null, e.toString());
             }
@@ -1167,7 +1224,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1190,6 +1246,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblExpandedCandidate1;
     private javax.swing.JLabel lblExpandedCandidate2;
+    private javax.swing.JLabel lblExpandedFacility;
     private javax.swing.JLabel lblExpandedInstructor1;
     private javax.swing.JLabel lblExpandedInstructor2;
     private javax.swing.JLabel lblExpandedLPCLapseDate1;
@@ -1277,8 +1334,7 @@ public class MainMenu extends javax.swing.JFrame {
         
         
 
-        //tblSlotsSetupDateFormat();
-        //TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+       
     }
 
     private void tblHistorySlotsCreate() {
@@ -1308,8 +1364,7 @@ public class MainMenu extends javax.swing.JFrame {
             model.addRow(row);
             tblSlots.setColumnSelectionAllowed(false);
         };
-        //tblSlotsSetupDateFormat();
-        //TableCellRenderer tableCellRenderer = new DefaultTableCellRenderer() {
+         
 
     }
 
@@ -1331,12 +1386,16 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     public ArrayList<Slot> getHistoryList() {
-        ArrayList<Slot> HistoryList = new ArrayList<Slot>();
+        ArrayList<SlotHistory> HistoryList = new ArrayList<SlotHistory>();
+        //DefaultTableModel model = (DefaultTableModel) tblSlots.getModel();
+        DefaultTableModel modelhistory = (DefaultTableModel) tblSlotHistory.getModel();
         DBConnect connSlotHistory = new DBConnect();
-
         try {
-            connSlotHistory.GetRS("Select * from slots_history where prim_key ='" + lblSlotID.getText().toString()
-                    + "'order by revision DESC'");
+            connSlotHistory.GetRS("Select * from slots_history where prim_key = '" + lblSlotID.getText().toString()
+                    + "' order by revision DESC");
+            //String test = ("Select * from slots_history where prim_key ='" + lblSlotID.getText().toString()
+             //       + "'order by revision DESC'");
+            JOptionPane.showMessageDialog(null, test);
             SlotHistory SlotHistory;
             while (connSlotHistory.rs.next()) {
                 SlotHistory = new SlotHistory(connSlotHistory.rs.getString("action"),
@@ -1358,12 +1417,13 @@ public class MainMenu extends javax.swing.JFrame {
                         connSlotHistory.rs.getDate("modified_time"),
                         connSlotHistory.rs.getBoolean("confirmed"),
                         connSlotHistory.rs.getBoolean("completed"));
-                //HistoryList.add(SlotHistory);
-            }
+                HistoryList.add(SlotHistory);
+                   }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - ArrayList<Slot> slotsList(): " + e);
+            JOptionPane.showMessageDialog(null, "Eagleplan Exception Error - ArrayList<Slot> getHistoryList(): " + e);
         }
-        return HistoryList;
+        return null;
+//return HistoryList;
     }
 
     public ArrayList<Slot> getSlotsList() {
